@@ -10,7 +10,10 @@
     "pdf:dev": "vp run geospatial-pdf-layer#dev",
     "pdf:preview": "vp run geospatial-pdf-layer#preview",
     "prepare": "vp config",
-    "ready": "vp check && vp test && vp run -r build"
+    "ready": "vp check && vp test && vp run -r build",
+    "video:build": "vp run video-layer#build",
+    "video:dev": "vp run video-layer#dev",
+    "video:preview": "vp run video-layer#preview"
   },
   "devDependencies": {
     "vite-plus": "catalog:"

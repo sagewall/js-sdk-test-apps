@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>video-layer</title>
+  </head>
+  <body>
+    <calcite-shell>
+      <arcgis-map>
+        <arcgis-zoom slot="top-left"></arcgis-zoom>
+        <arcgis-expand expand-icon="add-layer" expand-tooltip="Add portal layers" slot="top-left">
+          <calcite-button id="add-portal-layers-button">Add portal layers</calcite-button>
+        </arcgis-expand>
+        <arcgis-expand
+          expand-icon="transparency"
+          expand-tooltip="On-map layer opacity"
+          slot="top-left"
+        >
+          <calcite-block expanded heading="On-map layer opacity">
+            <calcite-label>
+              opacity (%)
+              <calcite-slider
+                id="opacity-slider"
+                value="100"
+                label-handles
+                label-ticks
+                max-label="100"
+                min-label="0"
+                ticks="100"
+              ></calcite-slider>
+            </calcite-label>
+            <calcite-label>
+              frameOpacity (%)
+              <calcite-slider
+                id="frame-opacity-slider"
+                value="100"
+                label-handles
+                label-ticks
+                max-label="100"
+                min-label="0"
+                ticks="100"
+              ></calcite-slider>
+            </calcite-label>
+          </calcite-block>
+        </arcgis-expand>
+        <arcgis-expand expand-icon="effects" expand-tooltip="Frame effects" slot="top-left">
+          <calcite-block expanded heading="Frame effects">
+            <calcite-label>
+              Invert
+              <calcite-switch id="frame-effect-invert-switch"></calcite-switch>
+            </calcite-label>
+            <calcite-label>
+              Brightness (%)
+              <calcite-slider
+                id="frame-effect-brightness-slider"
+                value="100"
+                label-handles
+                label-ticks
+                max="200"
+                max-label="100"
+                min-label="0"
+                ticks="100"
+              ></calcite-slider>
+            </calcite-label>
+            <calcite-label>
+              Contrast (%)
+              <calcite-slider
+                id="frame-effect-contrast-slider"
+                value="100"
+                label-handles
+                label-ticks
+                max="200"
+                max-label="100"
+                min-label="0"
+                ticks="100"
+              ></calcite-slider>
+            </calcite-label>
+            <calcite-label>
+              Saturation (%)
+              <calcite-slider
+                id="frame-effect-saturate-slider"
+                value="100"
+                label-handles
+                label-ticks
+                max="200"
+                max-label="100"
+                min-label="0"
+                ticks="100"
+              ></calcite-slider>
+            </calcite-label>
+          </calcite-block>
+        </arcgis-expand>
+        <arcgis-expand expand-icon="map" expand-tooltip="WebMap" slot="top-left">
+          <calcite-block expanded heading="WebMap">
+            <calcite-button disabled icon-start="save" id="save-button">Save</calcite-button>
+            <calcite-button icon-start="save-as" id="save-as-button">Save as</calcite-button>
+          </calcite-block>
+        </arcgis-expand>
+        <arcgis-expand expand-icon="test-data" expand-tooltip="Testing properties" slot="top-left">
+          <calcite-block expanded heading="Testing properties">
+            <calcite-label layout="inline">
+              Use testing properties
+              <calcite-switch id="testing-properties-switch"></calcite-switch>
+            </calcite-label>
+          </calcite-block>
+        </arcgis-expand>
+        <arcgis-expand expand-tooltip="Editor" slot="top-left">
+          <arcgis-editor></arcgis-editor>
+        </arcgis-expand>
+        <arcgis-expand expand-tooltip="Video Player" expanded slot="top-right">
+          <arcgis-video-player operational-data-visible></arcgis-video-player>
+        </arcgis-expand>
+        <arcgis-layer-list-next
+          show-heading
+          selection-mode="single"
+          slot="bottom-left"
+        ></arcgis-layer-list-next>
+        <calcite-panel
+          heading="Telemetry symbol"
+          hidden
+          id="telemetry-symbol-panel"
+          slot="bottom-right"
+        >
+          <calcite-color-picker alpha-channel id="telemetry-color-picker"></calcite-color-picker>
+        </calcite-panel>
+      </arcgis-map>
+    </calcite-shell>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
