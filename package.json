@@ -6,6 +6,9 @@
   "scripts": {
     "build:pages": "node scripts/build-pages.mjs",
     "dev": "vp run website#dev",
+    "pdf:build": "vp run geospatial-pdf-layer#build",
+    "pdf:dev": "vp run geospatial-pdf-layer#dev",
+    "pdf:preview": "vp run geospatial-pdf-layer#preview",
     "prepare": "vp config",
     "ready": "vp check && vp test && vp run -r build"
   },

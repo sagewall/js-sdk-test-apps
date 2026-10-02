@@ -6,6 +6,9 @@ packages:
 catalogMode: prefer
 
 catalog:
+  "@arcgis/core": 5.2.0-next.126
+  "@arcgis/map-components": 5.2.0-next.126
+  "@esri/calcite-components": 5.2.0-next.80
   "@types/node": ^24
   typescript: ^7.0.2
   vite: npm:@voidzero-dev/vite-plus-core@1.0.0
@@ -17,3 +20,5 @@ peerDependencyRules:
     - vite
   allowedVersions:
     vite: "*"
+allowBuilds:
+  "@vaadin/vaadin-usage-statistics": true
