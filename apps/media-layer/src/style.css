@@ -1,0 +1,60 @@
+:is(#add-media-layer-panel, #edit-media-panel, #save-webmap-panel) > * + * {
+  margin-top: var(--panel-content-gap);
+}
+
+:is(#edit-media-panel, #save-webmap-panel) > :first-child {
+  margin-top: var(--panel-content-gap);
+}
+
+:root {
+  --calcite-shell-panel-width: 20rem;
+  --panel-content-gap: 0.75rem;
+}
+
+.add-layer-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-layer-actions calcite-button {
+  flex: 1;
+}
+
+.control-point-history-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control-point-history-actions calcite-button {
+  flex: 1;
+  margin-top: var(--panel-content-gap);
+}
+
+.control-point-row {
+  align-items: end;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-areas:
+    "title title"
+    "x y";
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.control-point-title {
+  color: var(--calcite-color-text-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  grid-area: title;
+  line-height: 1.25;
+}
+
+.control-points-empty {
+  color: var(--calcite-color-text-2);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.control-points-grid {
+  display: grid;
+  gap: 0.5rem;
+}

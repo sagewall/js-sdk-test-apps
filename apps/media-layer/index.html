@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>media-layer</title>
+  </head>
+  <body>
+    <calcite-shell id="app">
+      <calcite-shell-panel
+        collapsed
+        display-mode="float-content"
+        id="shell-panel-end"
+        slot="panel-end"
+      >
+        <calcite-action-bar expanded slot="action-bar">
+          <calcite-action
+            icon="add-layer"
+            id="show-add-media-layer-action"
+            text="Add media"
+            text-enabled
+          ></calcite-action>
+
+          <calcite-action
+            disabled
+            hidden
+            icon="media-layer"
+            id="show-edit-media-action"
+            text="Edit media"
+            text-enabled
+          ></calcite-action>
+
+          <calcite-action
+            icon="save"
+            id="show-save-webmap-action"
+            slot="actions-end"
+            text="Save WebMap"
+            text-enabled
+          ></calcite-action>
+        </calcite-action-bar>
+
+        <calcite-panel closable closed heading="Add media layer" id="add-media-layer-panel">
+          <calcite-notice closable icon kind="info" open>
+            <div slot="title">How to add media</div>
+            <div slot="message">
+              <ol>
+                <li>Optional: search for an approximate location to place your image.</li>
+                <li>Enter an image URL.</li>
+                <li>Click "Create layer" to add the media layer to the map.</li>
+              </ol>
+            </div>
+          </calcite-notice>
+
+          <arcgis-search
+            id="media-location-search"
+            label="Optional: find a location"
+            placeholder="Search for a place (optional)"
+            reference-element="media-layer-map"
+          ></arcgis-search>
+
+          <calcite-input-text
+            id="new-media-url"
+            label-text="Media URL"
+            placeholder="https://example.com/image.png"
+          >
+          </calcite-input-text>
+
+          <div class="add-layer-actions">
+            <calcite-button appearance="outline" id="cancel-add-media-layer">
+              Cancel
+            </calcite-button>
+            <calcite-button disabled id="create-media-layer"> Create layer </calcite-button>
+          </div>
+        </calcite-panel>
+
+        <calcite-panel closable closed heading="Edit media" id="edit-media-panel">
+          <calcite-segmented-control
+            id="edit-media-tool-segmented-control"
+            label-text="Tool"
+            scale="m"
+            width="full"
+          >
+            <calcite-segmented-control-item checked icon-start="stretch" value="transform">
+              Transform
+            </calcite-segmented-control-item>
+            <calcite-segmented-control-item icon-start="ground-control-point" value="reshape">
+              Edit Control Points
+            </calcite-segmented-control-item>
+          </calcite-segmented-control>
+
+          <div id="reshape-point-controls">
+            <calcite-label layout="inline">
+              Edit Source Points
+              <calcite-switch checked id="edit-source-points-switch"> </calcite-switch>
+            </calcite-label>
+
+            <calcite-block collapsible heading="Map Points" id="map-points-section">
+              <p class="control-points-empty" id="map-control-points-empty" hidden>
+                Map control points are not available for this media element.
+              </p>
+              <div class="control-points-grid" id="map-control-points-grid"></div>
+            </calcite-block>
+
+            <calcite-block collapsible heading="Source Points" id="source-points-section">
+              <p class="control-points-empty" id="source-control-points-empty" hidden>
+                Source control points are not available for this media element.
+              </p>
+              <div class="control-points-grid" id="source-control-points-grid"></div>
+            </calcite-block>
+
+            <div class="control-point-history-actions">
+              <calcite-button appearance="outline" disabled id="undo-control-point-edits">
+                Undo
+              </calcite-button>
+              <calcite-button appearance="outline" disabled id="redo-control-point-edits">
+                Redo
+              </calcite-button>
+            </div>
+          </div>
+        </calcite-panel>
+
+        <calcite-panel closable closed heading="Save WebMap" id="save-webmap-panel">
+          <calcite-input-text
+            id="webmap-title-input-text"
+            label-text="WebMap title"
+            value="Media Layer WebMap"
+          ></calcite-input-text>
+
+          <calcite-button appearance="solid" id="save-webmap" width="full">Save</calcite-button>
+        </calcite-panel>
+      </calcite-shell-panel>
+
+      <arcgis-map center="-104.9903,39.7392" id="media-layer-map" zoom="9">
+        <arcgis-layer-list-next
+          auto-destroy-disabled
+          selection-mode="single"
+          show-heading
+          slot="bottom-left"
+        ></arcgis-layer-list-next>
+        <arcgis-zoom slot="top-left"></arcgis-zoom>
+      </arcgis-map>
+
+      <calcite-dialog heading="Saved Webmap Information" id="save-results-dialog" modal width="s">
+        <calcite-loader
+          id="save-loader"
+          label="Saving New WebMap"
+          text="Saving New WebMap"
+        ></calcite-loader>
+        <calcite-notice icon id="save-success-notice" kind="success">
+          <div id="save-success-title" slot="title">A new WebMap has been saved successfully</div>
+          <calcite-link id="save-success-link" slot="message" target="_blank"></calcite-link>
+        </calcite-notice>
+        <calcite-notice icon id="save-error-notice" kind="danger">
+          <div slot="title">The Webmap could not be saved</div>
+          <div id="save-error-message" slot="message"></div>
+        </calcite-notice>
+      </calcite-dialog>
+    </calcite-shell>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
