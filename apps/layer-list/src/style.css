@@ -1,0 +1,9 @@
+calcite-button,
+calcite-label,
+calcite-segmented-control {
+  margin: 3px;
+}
+
+#visibility-appearance-switch-label {
+  --calcite-label-margin-bottom: 0;
+}

@@ -6,6 +6,9 @@
   "scripts": {
     "build:pages": "node scripts/build-pages.mjs",
     "dev": "vp run website#dev",
+    "layer-list:build": "vp run layer-list#build",
+    "layer-list:dev": "vp run layer-list#dev",
+    "layer-list:preview": "vp run layer-list#preview",
     "media:build": "vp run media-layer#build",
     "media:dev": "vp run media-layer#dev",
     "media:preview": "vp run media-layer#preview",
