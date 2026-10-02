@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "ready": "vp check && vp run -r test && vp run -r build",
+    "build:pages": "node scripts/build-pages.mjs",
     "dev": "vp run website#dev",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "ready": "vp check && vp test && vp run -r build"
   },
   "devDependencies": {
     "vite-plus": "catalog:"
