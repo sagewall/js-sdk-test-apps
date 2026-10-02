@@ -1,0 +1,16 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+arcgis-layer-list,
+arcgis-legend {
+  height: 100%;
+  width: 100%;
+  overflow: hidden auto;
+}
+
+calcite-shell-panel {
+  --calcite-shell-panel-max-width: 100%;
+}
