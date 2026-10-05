@@ -16,8 +16,6 @@ import {
 import type Item from "@arcgis/core/layers/list/Item.js";
 import ActionButton from "@arcgis/core/support/actions/ActionButton.js";
 import CatalogLayerView from "@arcgis/core/views/layers/CatalogLayerView.js";
-import type ListItem from "@arcgis/core/widgets/LayerList/ListItem.js";
-import "@arcgis/map-components/components/arcgis-layer-list";
 import "@arcgis/map-components/components/arcgis-layer-list-next";
 import "@arcgis/map-components/components/arcgis-map";
 import "@esri/calcite-components/components/calcite-button";
@@ -37,10 +35,9 @@ const defaultWebMapItemId = "512944c00f8a4219a4bb70691089c9e9";
 const defaultPortal = "maps.arcgis.com";
 const html = document.querySelector("html")!;
 const filterModeHandles: ResourceHandle[] = [];
+const layerListElement = document.createElement("arcgis-layer-list-next");
 const layerListHandles: ResourceHandle[] = [];
 
-let isUsingLayerListNext = true;
-let activeLayerListElement = createLayerListElement(isUsingLayerListNext);
 let highlightHandle: ResourceHandle;
 
 const knowledgeGraphLayer = new KnowledgeGraphLayer({
@@ -65,7 +62,7 @@ app?.appendChild(viewElement);
 
 await viewElement.viewOnReady();
 
-viewElement.appendChild(activeLayerListElement);
+viewElement.appendChild(layerListElement);
 
 const optionsPanel = document.createElement("calcite-panel");
 optionsPanel.heading = "Options";
@@ -82,43 +79,14 @@ visibilityAppearanceSwitch.addEventListener("calciteSwitchChange", (event) => {
   const { target } = event;
 
   if (target.checked) {
-    activeLayerListElement.visibilityAppearance = "checkbox";
+    layerListElement.visibilityAppearance = "checkbox";
   } else {
-    activeLayerListElement.visibilityAppearance = "default";
+    layerListElement.visibilityAppearance = "default";
   }
 });
 
 visibilityAppearanceSwitchLabel.appendChild(visibilityAppearanceSwitch);
 optionsPanel.appendChild(visibilityAppearanceSwitchLabel);
-
-const layerListTypeSwitchLabel = document.createElement("calcite-label");
-layerListTypeSwitchLabel.id = "layer-list-type-switch-label";
-layerListTypeSwitchLabel.layout = "inline";
-const arcgisLayerListTextSpan = document.createElement("span");
-arcgisLayerListTextSpan.textContent = "arcgis-layer-list";
-
-const layerListTypeSwitch = document.createElement("calcite-switch");
-layerListTypeSwitch.disabled = true;
-layerListTypeSwitch.checked = true;
-layerListTypeSwitch.addEventListener("calciteSwitchChange", async (event) => {
-  const { target } = event;
-  target.disabled = true;
-  isUsingLayerListNext = target.checked;
-  try {
-    await replaceLayerList(isUsingLayerListNext);
-  } finally {
-    target.disabled = false;
-  }
-});
-
-const arcgisLayerListNextTextSpan = document.createElement("span");
-arcgisLayerListNextTextSpan.textContent = "arcgis-layer-list-next";
-
-layerListTypeSwitchLabel.appendChild(arcgisLayerListTextSpan);
-layerListTypeSwitchLabel.appendChild(layerListTypeSwitch);
-layerListTypeSwitchLabel.appendChild(arcgisLayerListNextTextSpan);
-
-optionsPanel.appendChild(layerListTypeSwitchLabel);
 
 const addCatalogLayerButton = document.createElement("calcite-button");
 addCatalogLayerButton.textContent = "Add catalog layer";
@@ -202,11 +170,7 @@ optionsPanel.appendChild(languageSegmentedControl);
 
 viewElement.appendChild(optionsPanel);
 
-try {
-  await setupLayerList(activeLayerListElement);
-} finally {
-  layerListTypeSwitch.disabled = false;
-}
+await setupLayerList(layerListElement);
 
 window.addEventListener("beforeunload", () => {
   clearFilterModeHandles();
@@ -239,15 +203,6 @@ function clearLayerListHandles() {
     handle.remove();
   }
   layerListHandles.length = 0;
-}
-
-function createLayerListElement(useLayerListNext: boolean) {
-  const tagName = useLayerListNext ? "arcgis-layer-list-next" : "arcgis-layer-list";
-  const layerListElement = document.createElement(tagName) as
-    | HTMLArcgisLayerListElement
-    | HTMLArcgisLayerListNextElement;
-
-  return layerListElement;
 }
 
 function getPortalFromUrl(defaultPortal: string): string {
@@ -306,13 +261,8 @@ async function handleLayerSelection(layer: Layer) {
   }
 }
 
-function itemMatchesCurrentFilterText(item: ListItem): boolean {
-  const filterText = (
-    (activeLayerListElement as HTMLArcgisLayerListElement | HTMLArcgisLayerListNextElement)
-      .filterText ?? ""
-  )
-    .trim()
-    .toLowerCase();
+function itemMatchesCurrentFilterText(item: Pick<Item, "layer" | "title">): boolean {
+  const filterText = (layerListElement.filterText ?? "").trim().toLowerCase();
   if (!filterText) {
     return true;
   }
@@ -321,7 +271,7 @@ function itemMatchesCurrentFilterText(item: ListItem): boolean {
   return itemTitle.includes(filterText);
 }
 
-async function listItemCreatedFunction(event: { item: ListItem }) {
+async function listItemCreatedFunction(event: { item: Item }) {
   const { item } = event;
   const { layer } = item;
 
@@ -408,19 +358,6 @@ function normalizePortal(portal: string): string {
   return /^https?:\/\//i.test(portal) ? portal : `https://${portal}`;
 }
 
-async function replaceLayerList(useLayerListNext: boolean) {
-  clearFilterModeHandles();
-  clearLayerListHandles();
-  highlightHandle?.remove();
-
-  const previousLayerList = activeLayerListElement;
-  activeLayerListElement = createLayerListElement(useLayerListNext);
-
-  previousLayerList.remove();
-  viewElement.appendChild(activeLayerListElement);
-  await setupLayerList(activeLayerListElement);
-}
-
 function setFilterPredicate(mode: FilterMode) {
   switch (mode) {
     case "extent":
@@ -434,15 +371,14 @@ function setFilterPredicate(mode: FilterMode) {
   }
 }
 
-async function setupLayerList(
-  layerListElement: HTMLArcgisLayerListElement | HTMLArcgisLayerListNextElement,
-) {
+async function setupLayerList(layerListElement: HTMLArcgisLayerListNextElement) {
   await layerListElement.componentOnReady();
 
   layerListElement.dragEnabled = true;
   layerListElement.filterPlaceholder = "Filter layers";
   layerListElement.knowledgeGraphOptions = {
     filterPlaceholder: "Filter tables",
+    hideStatusIndicators: false,
     listItemCreatedFunction: (event: any) => {
       const { item } = event;
 
@@ -459,11 +395,8 @@ async function setupLayerList(
     },
     minFilterItems: 1,
     selectionMode: "single",
-    visibleElements: {
-      errors: true,
-      filter: true,
-      statusIndicators: true,
-    },
+    showErrors: true,
+    showFilter: true,
   };
   layerListElement.listItemCreatedFunction = listItemCreatedFunction;
   layerListElement.selectionMode = "single";
@@ -480,54 +413,28 @@ async function setupLayerList(
 
   setFilterPredicate(getSelectedFilterMode());
 
-  if (!isUsingLayerListNext) {
-    const catalogLayerListActionHandle = reactiveUtils.on(
-      () => layerListElement.catalogLayerList,
-      "trigger-action",
-      async (event: any) => {
-        if (event.action.id === "add-layer") {
-          try {
-            const parentCatalogLayer = getCatalogLayerForLayer(event.item.layer);
-            if (!parentCatalogLayer) {
-              return;
-            }
-            await addLayerFromDynamicGroup(event.item.layer);
-            alert(`Added ${event.item.layer.title} to the map`);
-          } catch (error) {
-            console.error("Failed to add layer from dynamic group", error);
-            alert(`Unable to add ${event.item.layer.title} to the map`);
+  const catalogLayerListActionHandle = reactiveUtils.on(
+    () => layerListElement.catalogLayerList,
+    "arcgisTriggerAction",
+    async (event: any) => {
+      const { action, item } = event.detail;
+      if (action.id === "add-layer") {
+        try {
+          const parentCatalogLayer = getCatalogLayerForLayer(item.layer);
+          if (!parentCatalogLayer) {
+            return;
           }
-          layerListElement?.openedLayers?.pop();
+          await addLayerFromDynamicGroup(item.layer);
+          alert(`Added ${item.layer.title} to the map`);
+        } catch (error) {
+          console.error("Failed to add layer from dynamic group", error);
+          alert(`Unable to add ${item.layer.title} to the map`);
         }
-      },
-    );
-    layerListHandles.push(catalogLayerListActionHandle);
-  }
-
-  if (isUsingLayerListNext) {
-    const catalogLayerListActionHandle = reactiveUtils.on(
-      () => layerListElement.catalogLayerList,
-      "arcgisTriggerAction",
-      async (event: any) => {
-        const { action, item } = event.detail;
-        if (action.id === "add-layer") {
-          try {
-            const parentCatalogLayer = getCatalogLayerForLayer(item.layer);
-            if (!parentCatalogLayer) {
-              return;
-            }
-            await addLayerFromDynamicGroup(item.layer);
-            alert(`Added ${item.layer.title} to the map`);
-          } catch (error) {
-            console.error("Failed to add layer from dynamic group", error);
-            alert(`Unable to add ${item.layer.title} to the map`);
-          }
-          layerListElement?.openedLayers?.pop();
-        }
-      },
-    );
-    layerListHandles.push(catalogLayerListActionHandle);
-  }
+        layerListElement?.openedLayers?.pop();
+      }
+    },
+  );
+  layerListHandles.push(catalogLayerListActionHandle);
 
   const catalogListHighlightWatchHandle = reactiveUtils.watch(
     () => layerListElement.catalogLayerList,
@@ -551,15 +458,15 @@ async function setupLayerList(
 
   const selectedItemsChangeHandle = layerListElement.selectedItems?.on(
     "change",
-    (event: CollectionChangeEvent<ListItem | Item>) => {
+    (event: CollectionChangeEvent<Item>) => {
       const { removed, added } = event;
-      removed.forEach((item: ListItem | Item) => {
+      removed.forEach((item: Item) => {
         const { layer } = item;
         if (layer instanceof FeatureLayer) {
           layer.effect = "none";
         }
       });
-      added.forEach((item: ListItem | Item) => {
+      added.forEach((item: Item) => {
         const { layer } = item;
         if (layer instanceof FeatureLayer) {
           layer.effect = "drop-shadow(2px, 2px, 3px) saturate(250%)";
@@ -575,32 +482,17 @@ async function setupLayerList(
   );
   layerListHandles.push(selectedItemsWatchHandle);
 
-  if (!isUsingLayerListNext) {
-    const tableListActionHandle = reactiveUtils.on(
-      () => layerListElement.tableList,
-      "trigger-action",
-      (event: any) => {
-        if (event.action.id === "information") {
-          alert(`${event.item.layer.title}`);
-        }
-      },
-    );
-    layerListHandles.push(tableListActionHandle);
-  }
-
-  if (isUsingLayerListNext) {
-    const tableListActionHandle = reactiveUtils.on(
-      () => layerListElement.tableList,
-      "arcgisTriggerAction",
-      (event: any) => {
-        const { action, item } = event.detail;
-        if (action.id === "information") {
-          alert(`${item.layer?.title}`);
-        }
-      },
-    );
-    layerListHandles.push(tableListActionHandle);
-  }
+  const tableListActionHandle = reactiveUtils.on(
+    () => layerListElement.tableList,
+    "arcgisTriggerAction",
+    (event: any) => {
+      const { action, item } = event.detail;
+      if (action.id === "information") {
+        alert(`${item.layer?.title}`);
+      }
+    },
+  );
+  layerListHandles.push(tableListActionHandle);
 
   const tableSelectionWatchHandle = reactiveUtils.watch(
     () => layerListElement.tableList?.selectedItems?.at(0)?.layer as Layer,
@@ -646,7 +538,7 @@ async function setupLayerList(
 
 function showAll() {
   clearFilterModeHandles();
-  activeLayerListElement.filterPredicate = undefined;
+  layerListElement.filterPredicate = undefined;
 }
 
 function showAtCurrentViewExtent() {
@@ -661,7 +553,7 @@ function showAtCurrentViewExtent() {
           return viewElement.view.extent.intersects(layer.fullExtent);
         }) ?? []) as Layer[],
       (layers: Layer[]) => {
-        activeLayerListElement.filterPredicate = (item: ListItem) => {
+        layerListElement.filterPredicate = (item) => {
           if (!item || !item.layer) {
             return false;
           }
@@ -682,7 +574,7 @@ function showVisible() {
         (viewElement.map?.allLayers.filter((layer): layer is Layer => layer.visible) ??
           []) as Layer[],
       (layers: Layer[]) => {
-        activeLayerListElement.filterPredicate = (item: ListItem) => {
+        layerListElement.filterPredicate = (item) => {
           if (!item || !item.layer) {
             return false;
           }
