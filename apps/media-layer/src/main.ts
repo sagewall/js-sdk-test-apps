@@ -7,7 +7,7 @@ import PortalItem from "@arcgis/core/portal/PortalItem.js";
 import type MediaLayerInteractionOptions from "@arcgis/core/views/3d/layers/support/MediaLayerInteractionOptions.js";
 import type MediaLayerView from "@arcgis/core/views/layers/MediaLayerView.js";
 import WebMap from "@arcgis/core/WebMap.js";
-import type { LayerListViewModelEvents } from "@arcgis/core/widgets/LayerList/LayerListViewModel";
+import type { LayerListViewModelEvents } from "@arcgis/core/widgets/LayerList/LayerListViewModel.js";
 import type LayerListItem from "@arcgis/core/widgets/LayerList/ListItem.js";
 import "@arcgis/map-components/components/arcgis-layer-list-next";
 import "@arcgis/map-components/components/arcgis-map";

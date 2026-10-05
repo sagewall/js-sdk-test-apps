@@ -1,4 +1,4 @@
-import GeospatialPDFLayer from "@arcgis/core/layers/GeospatialPDFLayer";
+import GeospatialPDFLayer from "@arcgis/core/layers/GeospatialPDFLayer.js";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-zoom";
 import "@esri/calcite-components/components/calcite-shell";
