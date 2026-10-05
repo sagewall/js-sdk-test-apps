@@ -1,67 +1,17 @@
+/* Lightning CSS turns Calcite's light-dark() colors into invalid concatenated values.
+https://github.com/parcel-bundler/lightningcss/issues/1196
+*/
 :root {
-  --accent: #14755c;
-  --background: #f7f9f8;
-  --border: #d6dfdb;
-  --muted: #54645f;
-  --text: #192c25;
-  background: var(--background);
-  color: var(--text);
-  font:
-    16px/1.6 "Avenir Next",
-    "Segoe UI",
-    sans-serif;
-  font-synthesis: none;
-  letter-spacing: 0;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-#app {
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0 24px;
-}
-
-header {
-  align-items: center;
-  border-bottom: 2px solid var(--accent);
-  display: flex;
-  gap: 16px;
-  padding: 32px 0;
-}
-
-header img {
-  flex-shrink: 0;
-}
-
-h1,
-h2,
-p {
-  margin: 0;
-  overflow-wrap: anywhere;
-}
-
-h1 {
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-h2 {
-  font-size: 18px;
-  font-weight: 600;
+  color-scheme: light dark;
 }
 
 main {
-  padding: 32px 0;
+  box-sizing: border-box;
+  line-height: 1.5;
+  margin-inline: auto;
+  max-width: 800px;
+  padding: 24px;
+  width: 100%;
 }
 
 .section-heading {
@@ -72,47 +22,33 @@ main {
   justify-content: space-between;
 }
 
-.section-heading span,
-.empty,
-li p {
-  color: var(--muted);
-}
-
-.section-heading span {
-  font-size: 14px;
-}
-
-ul {
-  list-style: none;
-  margin: 24px 0 0;
-  padding: 0;
-}
-
-li {
-  border-bottom: 1px solid var(--border);
-  padding: 20px 0;
-}
-
-a {
-  color: var(--accent);
-  display: inline-block;
+h2 {
   font-size: 18px;
+  margin: 0;
+}
+
+#applications {
+  padding-inline-start: 24px;
+}
+
+#applications li {
+  margin-block: 20px;
+}
+
+calcite-link {
+  font-size: 20px;
   font-weight: 600;
   overflow-wrap: anywhere;
-  padding: 4px 0;
-  text-underline-offset: 4px;
 }
 
-a:hover {
-  text-decoration-thickness: 2px;
+#applications p {
+  margin: 4px 0 0;
+  max-width: 65ch;
+  overflow-wrap: anywhere;
 }
 
-a:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-}
-
+.section-heading span,
+#applications p,
 .empty {
-  border-block: 1px solid var(--border);
-  padding: 28px 0;
+  color: var(--calcite-color-text-2);
 }

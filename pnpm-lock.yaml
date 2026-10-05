@@ -305,6 +305,10 @@ importers:
         version: 1.0.0(@types/node@26.6.4)(@vitest/ui@5.0.1)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/website:
+    dependencies:
+      '@esri/calcite-components':
+        specifier: 'catalog:'
+        version: 5.2.0-next.85(luxon@3.7.2)
     devDependencies:
       typescript:
         specifier: 'catalog:'
