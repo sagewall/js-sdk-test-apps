@@ -172,7 +172,166 @@ optionsPanel.appendChild(languageSegmentedControl);
 
 viewElement.appendChild(optionsPanel);
 
-await setupLayerList(layerListElement);
+await layerListElement.componentOnReady();
+
+layerListElement.dragEnabled = true;
+layerListElement.filterPlaceholder = "Filter layers";
+layerListElement.knowledgeGraphOptions = {
+  filterPlaceholder: "Filter tables",
+  hideStatusIndicators: false,
+  listItemCreatedFunction: (event: any) => {
+    const { item } = event;
+
+    item.actionsSections = [
+      [
+        {
+          icon: "information",
+          id: "information",
+          title: "Show information",
+          type: "button",
+        },
+      ],
+    ];
+  },
+  minFilterItems: 1,
+  selectionMode: "single",
+  showErrors: true,
+  showFilter: true,
+};
+layerListElement.listItemCreatedFunction = listItemCreatedFunction;
+layerListElement.selectionMode = "single";
+layerListElement.showCloseButton = true;
+layerListElement.showCollapseButton = true;
+layerListElement.showErrors = true;
+layerListElement.showFilter = true;
+layerListElement.showHeading = true;
+layerListElement.showTemporaryLayerIndicators = true;
+layerListElement.slot = "top-right";
+layerListElement.visibilityAppearance = visibilityAppearanceSwitch.checked ? "checkbox" : "default";
+
+setFilterPredicate(getSelectedFilterMode());
+
+const catalogLayerListActionHandle = reactiveUtils.on(
+  () => layerListElement.catalogLayerList,
+  "arcgisTriggerAction",
+  async (event: any) => {
+    const { action, item } = event.detail;
+    if (action.id === "add-layer") {
+      try {
+        const parentCatalogLayer = getCatalogLayerForLayer(item.layer);
+        if (!parentCatalogLayer) {
+          return;
+        }
+        await addLayerFromDynamicGroup(item.layer);
+        alert(`Added ${item.layer.title} to the map`);
+      } catch (error) {
+        console.error("Failed to add layer from dynamic group", error);
+        alert(`Unable to add ${item.layer.title} to the map`);
+      }
+      layerListElement?.openedLayers?.pop();
+    }
+  },
+);
+layerListHandles.push(catalogLayerListActionHandle);
+
+const catalogListHighlightWatchHandle = reactiveUtils.watch(
+  () => layerListElement.catalogLayerList,
+  () => {
+    if (highlightHandle) {
+      highlightHandle.remove();
+    }
+  },
+);
+layerListHandles.push(catalogListHighlightWatchHandle);
+
+const catalogSelectionWatchHandle = reactiveUtils.watch(
+  () => layerListElement.catalogLayerList?.selectedItems?.at(0)?.layer as Layer,
+  (layer: Layer) => {
+    if (layer) {
+      void handleLayerSelection(layer);
+    }
+  },
+);
+layerListHandles.push(catalogSelectionWatchHandle);
+
+const selectedItemsChangeHandle = layerListElement.selectedItems?.on(
+  "change",
+  (event: CollectionChangeEvent<Item>) => {
+    const { removed, added } = event;
+    removed.forEach((item: Item) => {
+      const { layer } = item;
+      if (layer instanceof FeatureLayer) {
+        layer.effect = "none";
+      }
+    });
+    added.forEach((item: Item) => {
+      const { layer } = item;
+      if (layer instanceof FeatureLayer) {
+        layer.effect = "drop-shadow(2px, 2px, 3px) saturate(250%)";
+      }
+    });
+  },
+);
+layerListHandles.push(selectedItemsChangeHandle);
+
+const selectedItemsWatchHandle = reactiveUtils.watch(
+  () => layerListElement.selectedItems?.at(0)?.layer as Layer,
+  (layer: Layer) => layer && handleLayerSelection(layer),
+);
+layerListHandles.push(selectedItemsWatchHandle);
+
+const tableListActionHandle = reactiveUtils.on(
+  () => layerListElement.tableList,
+  "arcgisTriggerAction",
+  (event: any) => {
+    const { action, item } = event.detail;
+    if (action.id === "information") {
+      alert(`${item.layer?.title}`);
+    }
+  },
+);
+layerListHandles.push(tableListActionHandle);
+
+const tableSelectionWatchHandle = reactiveUtils.watch(
+  () => layerListElement.tableList?.selectedItems?.at(0)?.layer as Layer,
+  (layer: Layer) => {
+    if (layer) {
+      void handleLayerSelection(layer);
+    }
+  },
+);
+layerListHandles.push(tableSelectionWatchHandle);
+
+layerListElement.addEventListener("arcgisTriggerAction", (event: any) => {
+  const { id } = event.detail.action;
+  const { layer } = event.detail.item;
+
+  const addGroupLayer = (parent: Map | GroupLayer, layers: Collection<Layer>) => {
+    const groupLayer = new GroupLayer({
+      title: "New group layer",
+    });
+    const layerIndex = layers.findIndex((mapLayer) => layer === mapLayer);
+    parent.add(groupLayer, layerIndex + 1);
+    groupLayer.add(layer as Layer);
+  };
+
+  if (id === "add-group-layer" && layer) {
+    if (layer.parent instanceof GroupLayer) {
+      addGroupLayer(layer.parent, layer.parent.layers);
+    } else if (layer.parent instanceof Map) {
+      if (viewElement.map) {
+        addGroupLayer(layer.parent, viewElement.map.layers);
+      }
+    }
+  }
+
+  if (id === "zoom-to") {
+    const fullExtent = (layer as Layer).fullExtent;
+    if (fullExtent) {
+      void viewElement.goTo(fullExtent);
+    }
+  }
+});
 
 window.addEventListener("beforeunload", () => {
   clearFilterModeHandles();
@@ -389,171 +548,6 @@ function setFilterPredicate(mode: FilterMode) {
     default:
       showAll();
   }
-}
-
-async function setupLayerList(layerListElement: HTMLArcgisLayerListNextElement) {
-  await layerListElement.componentOnReady();
-
-  layerListElement.dragEnabled = true;
-  layerListElement.filterPlaceholder = "Filter layers";
-  layerListElement.knowledgeGraphOptions = {
-    filterPlaceholder: "Filter tables",
-    hideStatusIndicators: false,
-    listItemCreatedFunction: (event: any) => {
-      const { item } = event;
-
-      item.actionsSections = [
-        [
-          {
-            icon: "information",
-            id: "information",
-            title: "Show information",
-            type: "button",
-          },
-        ],
-      ];
-    },
-    minFilterItems: 1,
-    selectionMode: "single",
-    showErrors: true,
-    showFilter: true,
-  };
-  layerListElement.listItemCreatedFunction = listItemCreatedFunction;
-  layerListElement.selectionMode = "single";
-  layerListElement.showCloseButton = true;
-  layerListElement.showCollapseButton = true;
-  layerListElement.showErrors = true;
-  layerListElement.showFilter = true;
-  layerListElement.showHeading = true;
-  layerListElement.showTemporaryLayerIndicators = true;
-  layerListElement.slot = "top-right";
-  layerListElement.visibilityAppearance = visibilityAppearanceSwitch.checked
-    ? "checkbox"
-    : "default";
-
-  setFilterPredicate(getSelectedFilterMode());
-
-  const catalogLayerListActionHandle = reactiveUtils.on(
-    () => layerListElement.catalogLayerList,
-    "arcgisTriggerAction",
-    async (event: any) => {
-      const { action, item } = event.detail;
-      if (action.id === "add-layer") {
-        try {
-          const parentCatalogLayer = getCatalogLayerForLayer(item.layer);
-          if (!parentCatalogLayer) {
-            return;
-          }
-          await addLayerFromDynamicGroup(item.layer);
-          alert(`Added ${item.layer.title} to the map`);
-        } catch (error) {
-          console.error("Failed to add layer from dynamic group", error);
-          alert(`Unable to add ${item.layer.title} to the map`);
-        }
-        layerListElement?.openedLayers?.pop();
-      }
-    },
-  );
-  layerListHandles.push(catalogLayerListActionHandle);
-
-  const catalogListHighlightWatchHandle = reactiveUtils.watch(
-    () => layerListElement.catalogLayerList,
-    () => {
-      if (highlightHandle) {
-        highlightHandle.remove();
-      }
-    },
-  );
-  layerListHandles.push(catalogListHighlightWatchHandle);
-
-  const catalogSelectionWatchHandle = reactiveUtils.watch(
-    () => layerListElement.catalogLayerList?.selectedItems?.at(0)?.layer as Layer,
-    (layer: Layer) => {
-      if (layer) {
-        void handleLayerSelection(layer);
-      }
-    },
-  );
-  layerListHandles.push(catalogSelectionWatchHandle);
-
-  const selectedItemsChangeHandle = layerListElement.selectedItems?.on(
-    "change",
-    (event: CollectionChangeEvent<Item>) => {
-      const { removed, added } = event;
-      removed.forEach((item: Item) => {
-        const { layer } = item;
-        if (layer instanceof FeatureLayer) {
-          layer.effect = "none";
-        }
-      });
-      added.forEach((item: Item) => {
-        const { layer } = item;
-        if (layer instanceof FeatureLayer) {
-          layer.effect = "drop-shadow(2px, 2px, 3px) saturate(250%)";
-        }
-      });
-    },
-  );
-  layerListHandles.push(selectedItemsChangeHandle);
-
-  const selectedItemsWatchHandle = reactiveUtils.watch(
-    () => layerListElement.selectedItems?.at(0)?.layer as Layer,
-    (layer: Layer) => layer && handleLayerSelection(layer),
-  );
-  layerListHandles.push(selectedItemsWatchHandle);
-
-  const tableListActionHandle = reactiveUtils.on(
-    () => layerListElement.tableList,
-    "arcgisTriggerAction",
-    (event: any) => {
-      const { action, item } = event.detail;
-      if (action.id === "information") {
-        alert(`${item.layer?.title}`);
-      }
-    },
-  );
-  layerListHandles.push(tableListActionHandle);
-
-  const tableSelectionWatchHandle = reactiveUtils.watch(
-    () => layerListElement.tableList?.selectedItems?.at(0)?.layer as Layer,
-    (layer: Layer) => {
-      if (layer) {
-        void handleLayerSelection(layer);
-      }
-    },
-  );
-  layerListHandles.push(tableSelectionWatchHandle);
-
-  layerListElement.addEventListener("arcgisTriggerAction", (event: any) => {
-    const { id } = event.detail.action;
-    const { layer } = event.detail.item;
-
-    const addGroupLayer = (parent: Map | GroupLayer, layers: Collection<Layer>) => {
-      const groupLayer = new GroupLayer({
-        title: "New group layer",
-      });
-      const layerIndex = layers.findIndex((mapLayer) => layer === mapLayer);
-      parent.add(groupLayer, layerIndex + 1);
-      groupLayer.add(layer as Layer);
-    };
-
-    if (id === "add-group-layer" && layer) {
-      if (layer.parent instanceof GroupLayer) {
-        addGroupLayer(layer.parent, layer.parent.layers);
-      } else if (layer.parent instanceof Map) {
-        if (viewElement.map) {
-          addGroupLayer(layer.parent, viewElement.map.layers);
-        }
-      }
-    }
-
-    if (id === "zoom-to") {
-      const fullExtent = (layer as Layer).fullExtent;
-      if (fullExtent) {
-        void viewElement.goTo(fullExtent);
-      }
-    }
-  });
 }
 
 function showAll() {
