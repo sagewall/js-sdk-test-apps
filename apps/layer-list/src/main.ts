@@ -9,6 +9,7 @@ import FeatureLayer from "@arcgis/core/layers/FeatureLayer.js";
 import GroupLayer from "@arcgis/core/layers/GroupLayer.js";
 import KnowledgeGraphLayer from "@arcgis/core/layers/KnowledgeGraphLayer.js";
 import type Layer from "@arcgis/core/layers/Layer.js";
+import type VideoLayer from "@arcgis/core/layers/VideoLayer.js";
 import {
   getCatalogLayerForLayer,
   isLayerFromCatalog,
@@ -18,6 +19,7 @@ import ActionButton from "@arcgis/core/support/actions/ActionButton.js";
 import CatalogLayerView from "@arcgis/core/views/layers/CatalogLayerView.js";
 import "@arcgis/map-components/components/arcgis-layer-list-next";
 import "@arcgis/map-components/components/arcgis-map";
+import "@arcgis/map-components/components/arcgis-video-player";
 import "@esri/calcite-components/components/calcite-button";
 import "@esri/calcite-components/components/calcite-label";
 import "@esri/calcite-components/components/calcite-panel";
@@ -285,6 +287,7 @@ async function listItemCreatedFunction(event: { item: Item }) {
     item.actionsSections = [[]];
 
     if (
+      item.content.type === "layer" &&
       layer.type !== "group" &&
       layer.type !== "knowledge-graph" &&
       layer.type !== "catalog" &&
@@ -310,7 +313,7 @@ async function listItemCreatedFunction(event: { item: Item }) {
       };
     }
 
-    if (layer.type !== "catalog-dynamic-group") {
+    if (item.content.type === "layer" && layer.type !== "catalog-dynamic-group") {
       item.actionsSections.getItemAt(0)?.push(
         new ActionButton({
           title: "Zoom to",
@@ -321,6 +324,7 @@ async function listItemCreatedFunction(event: { item: Item }) {
     }
 
     if (
+      item.content.type === "layer" &&
       !isLayerFromCatalog(layer as Layer) &&
       layer.type !== "catalog-dynamic-group" &&
       layer.type !== "catalog-footprint" &&
@@ -346,6 +350,22 @@ async function listItemCreatedFunction(event: { item: Item }) {
           id: "add-layer",
         }),
       );
+    }
+
+    if (item.layer?.type === "video" && item.content.type === "layer") {
+      const videoLayer = item.layer as VideoLayer;
+      videoLayer.telemetryDisplay.frame = true;
+      const inlineVideoPlayer = document.createElement(
+        "arcgis-video-player",
+      ) as HTMLArcgisVideoPlayerElement;
+      inlineVideoPlayer.autoDestroyDisabled = true;
+      inlineVideoPlayer.inline = true;
+      inlineVideoPlayer.layer = videoLayer;
+
+      item.panel = {
+        content: inlineVideoPlayer,
+        icon: "follow-play",
+      };
     }
   }
 }
