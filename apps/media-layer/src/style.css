@@ -7,6 +7,10 @@
 }
 
 :root {
+  /* Lightning CSS turns Calcite's light-dark() colors into invalid concatenated values.
+https://github.com/parcel-bundler/lightningcss/issues/1196
+*/
+  color-scheme: light dark;
   --calcite-shell-panel-width: 20rem;
   --panel-content-gap: 0.75rem;
 }
