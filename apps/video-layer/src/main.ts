@@ -2,7 +2,7 @@ import Color from "@arcgis/core/Color.js";
 import config from "@arcgis/core/config.js";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import Layer from "@arcgis/core/layers/Layer.js";
-import type { TelemetryDisplayType } from "@arcgis/core/layers/list/types.js";
+import type { TelemetryDisplayType } from "@arcgis/core/layerList/types.js";
 import VideoLayer from "@arcgis/core/layers/VideoLayer.js";
 import PortalItem from "@arcgis/core/portal/PortalItem.js";
 import request from "@arcgis/core/request.js";

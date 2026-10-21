@@ -14,7 +14,7 @@ import {
   getCatalogLayerForLayer,
   isLayerFromCatalog,
 } from "@arcgis/core/layers/catalog/catalogUtils.js";
-import type Item from "@arcgis/core/layers/list/Item.js";
+import type Item from "@arcgis/core/layerList/Item.js";
 import ActionButton from "@arcgis/core/support/actions/ActionButton.js";
 import CatalogLayerView from "@arcgis/core/views/layers/CatalogLayerView.js";
 import "@arcgis/map-components/components/arcgis-layer-list-next";
