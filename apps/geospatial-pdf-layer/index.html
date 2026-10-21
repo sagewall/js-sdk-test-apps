@@ -7,9 +7,54 @@
     <title>geospatial-pdf-layer</title>
   </head>
   <body class="calcite-mode-auto">
-    <calcite-shell
-      ><arcgis-map basemap="topo-vector"> <arcgis-zoom slot="top-left"> </arcgis-zoom> </arcgis-map
-    ></calcite-shell>
+    <calcite-shell>
+      <calcite-shell-panel slot="panel-start">
+        <calcite-panel heading="Geospatial PDF" description="Drop a georeferenced PDF onto the map">
+          <calcite-block
+            heading="Sample PDF"
+            description="Download a georeferenced PDF to use with this sample"
+            expanded
+          >
+            <calcite-button
+              href="https://next.gha.afd.arcgis.com/javascript/latest/assets/sample-code/layers-geospatialpdf/Sample.pdf"
+              download
+              target="_blank"
+              rel="noopener"
+              icon-start="download"
+              width="full"
+            >
+              Download sample PDF
+            </calcite-button>
+          </calcite-block>
+          <calcite-block
+            heading="Add a local PDF"
+            description="Drag and drop one PDF onto the map, or choose a file below. The document is rendered in your browser without publishing a service."
+            expanded
+          >
+            <calcite-button id="choose-file" width="full" icon-start="upload"
+              >Choose PDF</calcite-button
+            >
+            <input id="file-input" type="file" accept=".pdf,application/pdf" hidden />
+            <calcite-label layout="inline">
+              <calcite-switch id="clip" checked></calcite-switch>
+              Clip to map neatline
+            </calcite-label>
+            <calcite-notice id="status" open icon="information" kind="info" aria-live="polite">
+              <div slot="title" id="status-title">Ready for a PDF</div>
+              <div slot="message" id="status-message">
+                Requires embedded georeferencing. Only the first page and map frame are displayed.
+              </div>
+            </calcite-notice>
+          </calcite-block>
+          <calcite-block heading="Loaded PDFs" expanded>
+            <arcgis-layer-list-next reference-element="pdf-map"></arcgis-layer-list-next>
+          </calcite-block>
+        </calcite-panel>
+      </calcite-shell-panel>
+      <arcgis-map id="pdf-map" basemap="topo" center="-98,39" zoom="4">
+        <arcgis-zoom slot="top-left"></arcgis-zoom>
+      </arcgis-map>
+    </calcite-shell>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
