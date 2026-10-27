@@ -399,16 +399,6 @@ packages:
       '@arcgis/core': 5.2.0-next.161
       '@arcgis/lumina': 5.2.0-next.161
 
-  '@arcgis/lumina@5.2.0-next.160':
-    resolution: {integrity: sha512-xut2x/jmyxsrQ9LF0cfNs67k3Gvr1M39sTaGwyiEDtgevpu1g80FYE/BqY3ipL1OB1hQNDPSIhl0YF0HooEQmQ==}
-    deprecated: This version is no longer supported. Upgrade to @latest
-    peerDependencies:
-      '@lit/context': ^1.1.6
-      lit: ^3.3.0
-    peerDependenciesMeta:
-      '@lit/context':
-        optional: true
-
   '@arcgis/lumina@5.2.0-next.161':
     resolution: {integrity: sha512-/Z9XwRntf3pBMzMp+J1K8E17acJJbY1RDRSkr/uuIfr5oGl1VXT4BR+EvllL3EkGpKTbraWVAQMbxXaeUmkxZA==}
     peerDependencies:
@@ -423,10 +413,6 @@ packages:
     peerDependencies:
       '@arcgis/core': 5.2.0-next.161
       '@esri/calcite-components': ^5.2.0
-
-  '@arcgis/toolkit@5.2.0-next.160':
-    resolution: {integrity: sha512-IyVR5SSPd3GBx9F1PZVI+6hGq4a2A3VDxdcVfhlSfTJrG2fEu7vMu9zNl6itbHyklK2X27BdhKvRx+qJu835DA==}
-    deprecated: This version is no longer supported. Upgrade to @latest
 
   '@arcgis/toolkit@5.2.0-next.161':
     resolution: {integrity: sha512-2RzSUbVL8WLzj3MZpRjQYAXQHyzJFEjm2ys8paLQ+2kKaUaoll/Sh9qEJYMKWCvFstjoCBPTHMh10dT4vtZuIQ==}
@@ -1750,8 +1736,8 @@ packages:
   magic-string@1.4.4:
     resolution: {integrity: sha512-jQz9sVhrZuphH4NrAIHSgkDJCluQO7Ioi4KGRLa7aTUjAODQ13hENX0YIytqYE/rIkO485gQG2LeBxJaW53kkQ==}
 
-  marked@18.1.1:
-    resolution: {integrity: sha512-zEGgrtUG8crk+TrMacJSVABU4DYDDkS8uqgU3ohrn/2fW9C2AEfUrO3m6IhpIpQpl7YcVpiXXC9cSMWDANT3dg==}
+  marked@18.1.2:
+    resolution: {integrity: sha512-DfOnvLAQ6WYeWxWO1u4RyFOeqyHup6dks5PPqnoFiooU7ipRvidO/2j8plhAHIiZg574E9ZlzSjUiPMLAzFkgg==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -2121,7 +2107,7 @@ snapshots:
       '@vaadin/grid': 25.3.4
       '@zip.js/zip.js': 2.23.0
       luxon: 3.7.2
-      marked: 18.1.1
+      marked: 18.1.2
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@lit/context'
@@ -2134,13 +2120,6 @@ snapshots:
     dependencies:
       '@arcgis/core': 5.2.0-next.161
       '@arcgis/lumina': 5.2.0-next.161(lit@3.3.3)
-      tslib: 2.8.1
-
-  '@arcgis/lumina@5.2.0-next.160(lit@3.3.3)':
-    dependencies:
-      '@arcgis/toolkit': 5.2.0-next.160
-      csstype: 3.2.3
-      lit: 3.3.3
       tslib: 2.8.1
 
   '@arcgis/lumina@5.2.0-next.161(lit@3.3.3)':
@@ -2165,10 +2144,6 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/toolkit@5.2.0-next.160':
-    dependencies:
-      tslib: 2.8.1
-
   '@arcgis/toolkit@5.2.0-next.161':
     dependencies:
       tslib: 2.8.1
@@ -2191,8 +2166,8 @@ snapshots:
 
   '@esri/calcite-components@5.2.0(luxon@3.7.2)':
     dependencies:
-      '@arcgis/lumina': 5.2.0-next.160(lit@3.3.3)
-      '@arcgis/toolkit': 5.2.0-next.160
+      '@arcgis/lumina': 5.2.0-next.161(lit@3.3.3)
+      '@arcgis/toolkit': 5.2.0-next.161
       '@esri/calcite-design-tokens': 4.2.0
       '@esri/calcite-ui-icons': 4.6.0
       '@floating-ui/dom': 1.8.0
@@ -3330,7 +3305,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  marked@18.1.1: {}
+  marked@18.1.2: {}
 
   markerjs2@2.32.7: {}
 
