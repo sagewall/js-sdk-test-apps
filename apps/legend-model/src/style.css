@@ -1,0 +1,30 @@
+/* Lightning CSS turns Calcite's light-dark() colors into invalid concatenated values.
+https://github.com/parcel-bundler/lightningcss/issues/1196
+*/
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+calcite-shell-panel {
+  --calcite-shell-panel-width: min(300px, 100vw);
+}
+
+.legend-symbol {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  inline-size: max-content;
+  min-inline-size: 44px;
+  min-block-size: 24px;
+}
+
+.legend-symbol > * {
+  flex: 0 0 auto;
+}

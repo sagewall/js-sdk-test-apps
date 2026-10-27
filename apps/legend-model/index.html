@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>legend-model</title>
+  </head>
+  <body class="calcite-mode-auto">
+    <calcite-shell>
+      <arcgis-map item-id="59a3db1da7744edb9c1818b74d1e954d">
+        <arcgis-zoom slot="top-left"></arcgis-zoom>
+      </arcgis-map>
+      <calcite-shell-panel slot="panel-end">
+        <calcite-panel scale="s" heading="Legend">
+          <calcite-notice open closable icon="information" kind="info" scale="s" width="full">
+            <div slot="message">
+              Select one or more legend items to show only the corresponding features. If no items
+              are selected for a layer, all features in that layer are shown.
+            </div>
+          </calcite-notice>
+          <div id="legend-sections"></div>
+        </calcite-panel>
+      </calcite-shell-panel>
+    </calcite-shell>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
