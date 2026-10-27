@@ -5,16 +5,6 @@ https://github.com/parcel-bundler/lightningcss/issues/1196
   color-scheme: light dark;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-
-calcite-shell-panel {
-  --calcite-shell-panel-width: min(300px, 100vw);
-}
-
 .legend-symbol {
   align-items: center;
   display: flex;
