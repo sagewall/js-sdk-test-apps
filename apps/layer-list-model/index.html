@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>layer-list-model</title>
+  </head>
+  <body>
+    <calcite-shell>
+      <arcgis-map item-id="59a3db1da7744edb9c1818b74d1e954d">
+        <arcgis-zoom slot="top-left"></arcgis-zoom>
+        <arcgis-expand slot="bottom-left">
+          <arcgis-legend></arcgis-legend>
+        </arcgis-expand>
+      </arcgis-map>
+      <calcite-shell-panel slot="panel-end">
+        <calcite-panel heading="Explore the outdoors" description="Control layer visibility">
+          <div class="bulk-actions">
+            <calcite-button id="show-all">Show all</calcite-button>
+            <calcite-button id="hide-all" appearance="outline">Hide all</calcite-button>
+          </div>
+          <div id="layer-controls"></div>
+        </calcite-panel>
+      </calcite-shell-panel>
+    </calcite-shell>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
