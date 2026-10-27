@@ -19,8 +19,8 @@ jobs:
       pages: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: voidzero-dev/setup-vp@v1.21.1
+      - uses: actions/checkout@v7
+      - uses: voidzero-dev/setup-vp@v1.22.0
         with:
           node-version: "24"
           cache: true
@@ -29,10 +29,10 @@ jobs:
       - run: vp test
       - name: Configure Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Build all Pages apps
         run: vp run --no-cache build:pages "${{ steps.pages.outputs.base_path }}"
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
@@ -48,4 +48,4 @@ jobs:
     steps:
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
