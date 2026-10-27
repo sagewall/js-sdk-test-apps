@@ -19,6 +19,11 @@ empty prefix for user/organization sites or custom domains.
 
 ### Adding an application
 
+From the repository root, you can scaffold a Vite+ application with
+`vp create vite:application --directory apps/my-app` (replace `my-app` with your
+app's lowercase kebab-case name). Treat the generated files as a starting point
+and check them against the requirements below.
+
 1. Create a workspace package under `apps/<lowercase-kebab-case-name>/` with a unique
    package `name` and a `build` script. Restart the website dev server after adding it.
 2. Use a Vite-compatible build that accepts `--base <path>` and writes a static
