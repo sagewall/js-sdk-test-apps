@@ -11,8 +11,8 @@ catalog:
   "@esri/calcite-components": ~5.2.0
   "@types/node": ^24
   typescript: ^7.0.2
-  vite: npm:@voidzero-dev/vite-plus-core@1.0.0
-  vite-plus: 1.0.0
+  vite: npm:@voidzero-dev/vite-plus-core@1.4.0
+  vite-plus: 1.4.0
 overrides:
   vite@*: "catalog:"
 peerDependencyRules:
