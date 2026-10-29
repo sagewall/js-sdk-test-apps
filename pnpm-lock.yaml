@@ -166,10 +166,10 @@ catalogs:
   default:
     '@arcgis/core':
       specifier: ~5.2.0-next.161
-      version: 5.2.0-next.161
+      version: 5.2.0-next.162
     '@arcgis/map-components':
       specifier: ~5.2.0-next.161
-      version: 5.2.0-next.161
+      version: 5.2.0-next.162
     '@esri/calcite-components':
       specifier: ~5.2.0
       version: 5.2.0
@@ -198,10 +198,10 @@ importers:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.161
+        version: 5.2.0-next.162
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -220,10 +220,10 @@ importers:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.161
+        version: 5.2.0-next.162
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -242,10 +242,10 @@ importers:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.161
+        version: 5.2.0-next.162
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -264,10 +264,10 @@ importers:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.161
+        version: 5.2.0-next.162
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -286,10 +286,10 @@ importers:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.161
+        version: 5.2.0-next.162
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -308,10 +308,10 @@ importers:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.161
+        version: 5.2.0-next.162
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -330,10 +330,10 @@ importers:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.161
+        version: 5.2.0-next.162
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -384,23 +384,27 @@ packages:
   '@amcharts/amcharts5@5.20.8':
     resolution: {integrity: sha512-ZrShblnP6JV/B4806+roNrAOzl+GIWDZCetJq82MHRzPsL0TAIPpL7jhmizzN/WRpjl/YvWRs1qjvS2o0d4rng==}
 
-  '@arcgis/common-components@5.2.0-next.161':
-    resolution: {integrity: sha512-IIShTCRR+60F59c64WRb1RvWFbgOubOIqh/uDOgHlle0aPq4UdJGrkMlXtPoDsqGvL4Z+CuCrmKWr65GWoOSIQ==}
+  '@arcgis/common-components@5.2.0-next.162':
+    resolution: {integrity: sha512-25zkSXCCYeu+xcMCbjT8NSce7hf2pcly5kxYBoiZ9k3TObrCwbSooTZXXBbbUcxgQnPK8PZXvFlch6NxPvnfhQ==}
+    deprecated: This version is no longer supported. Upgrade to @latest
     peerDependencies:
-      '@arcgis/core': 5.2.0-next.161
+      '@arcgis/core': 5.2.0-next.162
       '@esri/calcite-components': ^5.2.0
 
-  '@arcgis/core@5.2.0-next.161':
-    resolution: {integrity: sha512-scUpnHPrdKc9Q0dW0SNgPhY8yMdw4Hj7398mo/Z5Jrsmj+fBchrAmA5+tcgUPn3vWOe+D2lYMYQwisRVR/EpCQ==}
+  '@arcgis/core@5.2.0-next.162':
+    resolution: {integrity: sha512-87kkbSCjv8weFJsy9Qt9PWwKF7I2K3PyUQsDL9YF1JepDp+9Fi/ru4L6dJbvSlS8Ib13fcYpLIrwjALw5JblaQ==}
+    deprecated: This version is no longer supported. Upgrade to @latest
 
-  '@arcgis/lumina-toolkit@5.2.0-next.161':
-    resolution: {integrity: sha512-F0sV7HHQR8oZ9mBhGJRpruA+sUs+3zdQaykKdgbw4vP2a58+G8UZJaf4a8PhOu5ov3daO4gU0TdHFDmUsfnBlg==}
+  '@arcgis/lumina-toolkit@5.2.0-next.162':
+    resolution: {integrity: sha512-ozummwg3ClxAQXc+zLVYHSbfpglLd1EJLm8LLWwniXWoZgu6Dapz9cC5RaEZ/itqzARMtUYcbNtxgt9GaWH/Nw==}
+    deprecated: This version is no longer supported. Upgrade to @latest
     peerDependencies:
-      '@arcgis/core': 5.2.0-next.161
-      '@arcgis/lumina': 5.2.0-next.161
+      '@arcgis/core': 5.2.0-next.162
+      '@arcgis/lumina': 5.2.0-next.162
 
-  '@arcgis/lumina@5.2.0-next.161':
-    resolution: {integrity: sha512-/Z9XwRntf3pBMzMp+J1K8E17acJJbY1RDRSkr/uuIfr5oGl1VXT4BR+EvllL3EkGpKTbraWVAQMbxXaeUmkxZA==}
+  '@arcgis/lumina@5.2.0-next.162':
+    resolution: {integrity: sha512-IX8zKVP75nqlJjDKh/inRbB1qSZ+ydP9CdG++C2rhB8NW1XFnFSEHiInBoDh5uf7TmLP+UfOC6nvCjATRGg7iQ==}
+    deprecated: This version is no longer supported. Upgrade to @latest
     peerDependencies:
       '@lit/context': ^1.1.6
       lit: ^3.3.0
@@ -408,14 +412,16 @@ packages:
       '@lit/context':
         optional: true
 
-  '@arcgis/map-components@5.2.0-next.161':
-    resolution: {integrity: sha512-y5Y2cqoetEiR0V2CXRwgMbIfvtKhHCucMXsqA3+fJPaZAaoxmg/NVbZ6ZLeoGc2IkngbO/IEQEXeFYJU7Wd16Q==}
+  '@arcgis/map-components@5.2.0-next.162':
+    resolution: {integrity: sha512-+qbIQlZLlo82SY02G282YcD6Pcw6a1Zq9m7Rj13WzTofOT/Rx0DrCQNd4tzRNE07K95g2wLYT9oexSb306ObYQ==}
+    deprecated: This version is no longer supported. Upgrade to @latest
     peerDependencies:
-      '@arcgis/core': 5.2.0-next.161
+      '@arcgis/core': 5.2.0-next.162
       '@esri/calcite-components': ^5.2.0
 
-  '@arcgis/toolkit@5.2.0-next.161':
-    resolution: {integrity: sha512-2RzSUbVL8WLzj3MZpRjQYAXQHyzJFEjm2ys8paLQ+2kKaUaoll/Sh9qEJYMKWCvFstjoCBPTHMh10dT4vtZuIQ==}
+  '@arcgis/toolkit@5.2.0-next.162':
+    resolution: {integrity: sha512-Sbezhrs2CNf+TqRNmlmxzETcakRBKcqty9lT+YAQe7Z4rzeJf5vPxRB21/gCD+AiMOcemf4grzhmAiRNpudZVA==}
+    deprecated: This version is no longer supported. Upgrade to @latest
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -1604,8 +1610,8 @@ packages:
   flatted@3.4.4:
     resolution: {integrity: sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==}
 
-  focus-trap@8.2.3:
-    resolution: {integrity: sha512-LTNHZwcFM7bSdU1cG1ExoaTEzoGmdjw+EzDotolZmLTCbm0ll2k6J3NL+WfqP14nGLxAp+XDJgwlT2DtNhcukA==}
+  focus-trap@8.2.4:
+    resolution: {integrity: sha512-oy6dj7WZYgMbbpoOA29K5W++473F1zEzdI1oJgPb6x7yWT36YaWedUe6i6YPWEt5quSh0pRMohVyHLWXUxtdxg==}
 
   fontkit@2.0.4:
     resolution: {integrity: sha512-syetQadaUEDNdxdugga9CpEYVaQIxOwk7GlwZWWZ19//qW4zE5bknOKeMBDYAASwnpaSHKJITRLMF9m1fp3s6g==}
@@ -1733,8 +1739,8 @@ packages:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
 
-  magic-string@1.4.4:
-    resolution: {integrity: sha512-jQz9sVhrZuphH4NrAIHSgkDJCluQO7Ioi4KGRLa7aTUjAODQ13hENX0YIytqYE/rIkO485gQG2LeBxJaW53kkQ==}
+  magic-string@1.4.5:
+    resolution: {integrity: sha512-oLLC2+YvQUfAa+vxoufE/yc1icb87M9iXIRqAoR/2EhE/8cb3SF/+Gi0c2By1B+5Vz2e2vQtUvHiu1+63Znh+w==}
 
   marked@18.1.2:
     resolution: {integrity: sha512-DfOnvLAQ6WYeWxWO1u4RyFOeqyHup6dks5PPqnoFiooU7ipRvidO/2j8plhAHIiZg574E9ZlzSjUiPMLAzFkgg==}
@@ -1823,8 +1829,8 @@ packages:
   polylabel@1.1.0:
     resolution: {integrity: sha512-bxaGcA40sL3d6M4hH72Z4NdLqxpXRsCFk8AITYg6x1rn1Ei3izf00UMLklerBZTO49aPA3CYrIwVulx2Bce2pA==}
 
-  postcss@8.5.31:
-    resolution: {integrity: sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==}
+  postcss@8.5.32:
+    resolution: {integrity: sha512-LJlKCCAUFKOuZxipUdYw1NzIITEsPcgyOG9LkvRJvuKj/bRzbuRY0ARXvL0pWGpsZvn8jku+LMep2eU0seHp8g==}
     engines: {node: ^10 || ^12 || >=14}
 
   pretty-format@27.5.1:
@@ -2084,12 +2090,12 @@ snapshots:
       svg-arc-to-cubic-bezier: 3.2.0
       tslib: 2.8.1
 
-  '@arcgis/common-components@5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
+  '@arcgis/common-components@5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
     dependencies:
-      '@arcgis/core': 5.2.0-next.161
-      '@arcgis/lumina': 5.2.0-next.161(lit@3.3.3)
-      '@arcgis/lumina-toolkit': 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@arcgis/lumina@5.2.0-next.161(lit@3.3.3))
-      '@arcgis/toolkit': 5.2.0-next.161
+      '@arcgis/core': 5.2.0-next.162
+      '@arcgis/lumina': 5.2.0-next.162(lit@3.3.3)
+      '@arcgis/lumina-toolkit': 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@arcgis/lumina@5.2.0-next.162(lit@3.3.3))
+      '@arcgis/toolkit': 5.2.0-next.162
       '@esri/arcgis-html-sanitizer': 4.2.0-next.2
       '@esri/calcite-components': 5.2.0(luxon@3.7.2)
       '@lit/task': 1.0.3
@@ -2098,10 +2104,10 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/core@5.2.0-next.161':
+  '@arcgis/core@5.2.0-next.162':
     dependencies:
       '@amcharts/amcharts5': 5.20.8
-      '@arcgis/toolkit': 5.2.0-next.161
+      '@arcgis/toolkit': 5.2.0-next.162
       '@esri/arcgis-html-sanitizer': 4.2.0-next.2
       '@esri/calcite-components': 5.2.0(luxon@3.7.2)
       '@vaadin/grid': 25.3.4
@@ -2116,27 +2122,27 @@ snapshots:
       - dayjs
       - moment-timezone
 
-  '@arcgis/lumina-toolkit@5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@arcgis/lumina@5.2.0-next.161(lit@3.3.3))':
+  '@arcgis/lumina-toolkit@5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@arcgis/lumina@5.2.0-next.162(lit@3.3.3))':
     dependencies:
-      '@arcgis/core': 5.2.0-next.161
-      '@arcgis/lumina': 5.2.0-next.161(lit@3.3.3)
+      '@arcgis/core': 5.2.0-next.162
+      '@arcgis/lumina': 5.2.0-next.162(lit@3.3.3)
       tslib: 2.8.1
 
-  '@arcgis/lumina@5.2.0-next.161(lit@3.3.3)':
+  '@arcgis/lumina@5.2.0-next.162(lit@3.3.3)':
     dependencies:
-      '@arcgis/toolkit': 5.2.0-next.161
+      '@arcgis/toolkit': 5.2.0-next.162
       csstype: 3.2.3
       lit: 3.3.3
       tslib: 2.8.1
 
-  '@arcgis/map-components@5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
+  '@arcgis/map-components@5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
     dependencies:
       '@amcharts/amcharts5': 5.20.8
-      '@arcgis/common-components': 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@esri/calcite-components@5.2.0(luxon@3.7.2))
-      '@arcgis/core': 5.2.0-next.161
-      '@arcgis/lumina': 5.2.0-next.161(lit@3.3.3)
-      '@arcgis/lumina-toolkit': 5.2.0-next.161(@arcgis/core@5.2.0-next.161)(@arcgis/lumina@5.2.0-next.161(lit@3.3.3))
-      '@arcgis/toolkit': 5.2.0-next.161
+      '@arcgis/common-components': 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+      '@arcgis/core': 5.2.0-next.162
+      '@arcgis/lumina': 5.2.0-next.162(lit@3.3.3)
+      '@arcgis/lumina-toolkit': 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@arcgis/lumina@5.2.0-next.162(lit@3.3.3))
+      '@arcgis/toolkit': 5.2.0-next.162
       '@esri/calcite-components': 5.2.0(luxon@3.7.2)
       es-toolkit: 1.53.0
       lit: 3.3.3
@@ -2144,7 +2150,7 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/toolkit@5.2.0-next.161':
+  '@arcgis/toolkit@5.2.0-next.162':
     dependencies:
       tslib: 2.8.1
 
@@ -2166,8 +2172,8 @@ snapshots:
 
   '@esri/calcite-components@5.2.0(luxon@3.7.2)':
     dependencies:
-      '@arcgis/lumina': 5.2.0-next.161(lit@3.3.3)
-      '@arcgis/toolkit': 5.2.0-next.161
+      '@arcgis/lumina': 5.2.0-next.162(lit@3.3.3)
+      '@arcgis/toolkit': 5.2.0-next.162
       '@esri/calcite-design-tokens': 4.2.0
       '@esri/calcite-ui-icons': 4.6.0
       '@floating-ui/dom': 1.8.0
@@ -2177,7 +2183,7 @@ snapshots:
       color: 5.0.3
       composed-offset-position: 0.0.6(@floating-ui/utils@0.2.12)
       es-toolkit: 1.53.0
-      focus-trap: 8.2.3
+      focus-trap: 8.2.4
       interactjs: 1.10.28
       lit: 3.3.3
       sortablejs: 1.15.7
@@ -2719,7 +2725,7 @@ snapshots:
       '@vitest/mocker': 5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
       '@vitest/ui': 5.0.5(vitest@5.0.5)
       '@vitest/utils': 5.0.5
-      magic-string: 1.4.4
+      magic-string: 1.4.5
       pngjs: 7.0.0
       sirv: 3.0.2
       tinyrainbow: 3.2.0
@@ -2756,7 +2762,7 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.5
       estree-walker: 3.0.3
-      magic-string: 1.4.4
+      magic-string: 1.4.5
       vite: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
@@ -2789,7 +2795,7 @@ snapshots:
     dependencies:
       '@vitest/pretty-format': 5.0.5
       '@vitest/utils': 5.0.5
-      magic-string: 1.4.4
+      magic-string: 1.4.5
       pathe: 2.0.3
 
   '@vitest/spy@5.0.5': {}
@@ -2815,7 +2821,7 @@ snapshots:
       '@oxc-project/runtime': 0.155.0
       '@oxc-project/types': 0.155.0
       lightningcss: 1.33.0
-      postcss: 8.5.31
+      postcss: 8.5.32
       yuku-parser: 0.19.0
     optionalDependencies:
       '@types/node': 26.6.5
@@ -3190,7 +3196,7 @@ snapshots:
 
   flatted@3.4.4: {}
 
-  focus-trap@8.2.3:
+  focus-trap@8.2.4:
     dependencies:
       tabbable: 6.5.1
 
@@ -3301,7 +3307,7 @@ snapshots:
 
   lz-string@1.5.0: {}
 
-  magic-string@1.4.4:
+  magic-string@1.4.5:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.6.0
 
@@ -3408,7 +3414,7 @@ snapshots:
     dependencies:
       tinyqueue: 2.0.3
 
-  postcss@8.5.31:
+  postcss@8.5.32:
     dependencies:
       nanoid: 3.3.20
       picocolors: 1.1.1
@@ -3599,7 +3605,7 @@ snapshots:
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
-      magic-string: 1.4.4
+      magic-string: 1.4.5
       obug: 3.0.0
       picomatch: 4.0.7
       std-env: 4.3.0
