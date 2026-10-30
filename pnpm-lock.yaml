@@ -166,10 +166,10 @@ catalogs:
   default:
     '@arcgis/core':
       specifier: ~5.2.0-next.161
-      version: 5.2.0-next.162
+      version: 5.2.0-next.163
     '@arcgis/map-components':
       specifier: ~5.2.0-next.161
-      version: 5.2.0-next.162
+      version: 5.2.0-next.163
     '@esri/calcite-components':
       specifier: ~5.2.0
       version: 5.2.0
@@ -192,16 +192,16 @@ importers:
     devDependencies:
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/geospatial-pdf-layer:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.162
+        version: 5.2.0-next.163
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -211,19 +211,19 @@ importers:
         version: 7.0.2
       vite:
         specifier: 'catalog:'
-        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/layer-list:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.162
+        version: 5.2.0-next.163
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -233,19 +233,19 @@ importers:
         version: 7.0.2
       vite:
         specifier: 'catalog:'
-        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/layer-list-model:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.162
+        version: 5.2.0-next.163
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -255,19 +255,19 @@ importers:
         version: 7.0.2
       vite:
         specifier: 'catalog:'
-        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/legend:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.162
+        version: 5.2.0-next.163
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -277,19 +277,19 @@ importers:
         version: 7.0.2
       vite:
         specifier: 'catalog:'
-        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/legend-model:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.162
+        version: 5.2.0-next.163
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -299,19 +299,19 @@ importers:
         version: 7.0.2
       vite:
         specifier: 'catalog:'
-        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/media-layer:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.162
+        version: 5.2.0-next.163
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -321,19 +321,19 @@ importers:
         version: 7.0.2
       vite:
         specifier: 'catalog:'
-        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/video-layer:
     dependencies:
       '@arcgis/core':
         specifier: 'catalog:'
-        version: 5.2.0-next.162
+        version: 5.2.0-next.163
       '@arcgis/map-components':
         specifier: 'catalog:'
-        version: 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+        version: 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))
       '@esri/calcite-components':
         specifier: 'catalog:'
         version: 5.2.0(luxon@3.7.2)
@@ -343,10 +343,10 @@ importers:
         version: 7.0.2
       vite:
         specifier: 'catalog:'
-        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   apps/website:
     dependencies:
@@ -359,16 +359,16 @@ importers:
         version: 7.0.2
       vite:
         specifier: 'catalog:'
-        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+        version: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   packages/utils:
     devDependencies:
       '@types/node':
         specifier: ^26.1.1
-        version: 26.6.5
+        version: 26.6.6
       bumpp:
         specifier: ^11.1.0
         version: 11.1.0
@@ -377,34 +377,31 @@ importers:
         version: 7.0.2
       vite-plus:
         specifier: 'catalog:'
-        version: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+        version: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
 packages:
 
   '@amcharts/amcharts5@5.20.8':
     resolution: {integrity: sha512-ZrShblnP6JV/B4806+roNrAOzl+GIWDZCetJq82MHRzPsL0TAIPpL7jhmizzN/WRpjl/YvWRs1qjvS2o0d4rng==}
 
-  '@arcgis/common-components@5.2.0-next.162':
-    resolution: {integrity: sha512-25zkSXCCYeu+xcMCbjT8NSce7hf2pcly5kxYBoiZ9k3TObrCwbSooTZXXBbbUcxgQnPK8PZXvFlch6NxPvnfhQ==}
-    deprecated: This version is no longer supported. Upgrade to @latest
+  '@arcgis/common-components@5.2.0-next.163':
+    resolution: {integrity: sha512-vHASXC2FKF3181+WBCV7zmGKBiJQdwPinxlqs4sWviKOxaKlFUVMeyO1ckPxkki9OucrL1eb4U+PIMpOukvZ2Q==}
     peerDependencies:
-      '@arcgis/core': 5.2.0-next.162
+      '@arcgis/core': 5.2.0-next.163
       '@esri/calcite-components': ^5.2.0
 
-  '@arcgis/core@5.2.0-next.162':
-    resolution: {integrity: sha512-87kkbSCjv8weFJsy9Qt9PWwKF7I2K3PyUQsDL9YF1JepDp+9Fi/ru4L6dJbvSlS8Ib13fcYpLIrwjALw5JblaQ==}
+  '@arcgis/core@5.2.0-next.163':
+    resolution: {integrity: sha512-xion7593phzj/vNb4+qjGhjuzGhJENXpRhAC+Qy5Pegu5/eOicLregpcRmTYZnlCKjmyx2mWmikQB4evdfVR4g==}
     deprecated: This version is no longer supported. Upgrade to @latest
 
-  '@arcgis/lumina-toolkit@5.2.0-next.162':
-    resolution: {integrity: sha512-ozummwg3ClxAQXc+zLVYHSbfpglLd1EJLm8LLWwniXWoZgu6Dapz9cC5RaEZ/itqzARMtUYcbNtxgt9GaWH/Nw==}
-    deprecated: This version is no longer supported. Upgrade to @latest
+  '@arcgis/lumina-toolkit@5.2.0-next.163':
+    resolution: {integrity: sha512-2St9DrTEbR3MUfE/5SNaxEtK/oTdwZ86vTT4e2+e2jyz6BD16yWU45auLk9DGikR37eeM+JQSk+0/Z2wshh3Sg==}
     peerDependencies:
-      '@arcgis/core': 5.2.0-next.162
-      '@arcgis/lumina': 5.2.0-next.162
+      '@arcgis/core': 5.2.0-next.163
+      '@arcgis/lumina': 5.2.0-next.163
 
-  '@arcgis/lumina@5.2.0-next.162':
-    resolution: {integrity: sha512-IX8zKVP75nqlJjDKh/inRbB1qSZ+ydP9CdG++C2rhB8NW1XFnFSEHiInBoDh5uf7TmLP+UfOC6nvCjATRGg7iQ==}
-    deprecated: This version is no longer supported. Upgrade to @latest
+  '@arcgis/lumina@5.2.0-next.163':
+    resolution: {integrity: sha512-d0SG0d/7OhCWhwzt3IC2nWbFzPhh1TfOCFS6PRnHcp8sz1ek5ZQScFohC61u72IylMe2FcJ4pdzQy214FAbbqQ==}
     peerDependencies:
       '@lit/context': ^1.1.6
       lit: ^3.3.0
@@ -412,16 +409,15 @@ packages:
       '@lit/context':
         optional: true
 
-  '@arcgis/map-components@5.2.0-next.162':
-    resolution: {integrity: sha512-+qbIQlZLlo82SY02G282YcD6Pcw6a1Zq9m7Rj13WzTofOT/Rx0DrCQNd4tzRNE07K95g2wLYT9oexSb306ObYQ==}
+  '@arcgis/map-components@5.2.0-next.163':
+    resolution: {integrity: sha512-ALm357Q5S3eY9JkoONLlNC204NMiMlTH9Hf1h8jS6FLtJRsTCZTp898qGkBm+CGorXQubOrckUeOeWYPP79AIQ==}
     deprecated: This version is no longer supported. Upgrade to @latest
     peerDependencies:
-      '@arcgis/core': 5.2.0-next.162
+      '@arcgis/core': 5.2.0-next.163
       '@esri/calcite-components': ^5.2.0
 
-  '@arcgis/toolkit@5.2.0-next.162':
-    resolution: {integrity: sha512-Sbezhrs2CNf+TqRNmlmxzETcakRBKcqty9lT+YAQe7Z4rzeJf5vPxRB21/gCD+AiMOcemf4grzhmAiRNpudZVA==}
-    deprecated: This version is no longer supported. Upgrade to @latest
+  '@arcgis/toolkit@5.2.0-next.163':
+    resolution: {integrity: sha512-qYT3iMAmaCotP1qsix+odLCOFwSVeXyNDeL4X9maAkX5R5SX07ubNt0q0HBdjlbTFQEIQ4Sch13rXpPcnKgUww==}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -909,14 +905,14 @@ packages:
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
-  '@types/estree@1.0.9':
-    resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
+  '@types/estree@1.0.10':
+    resolution: {integrity: sha512-lTyOMnOcmRBzdCv6/4zUZCrEhV0xrqQiUZBZtVcbmLHBXKLnN8q89v/wKRF/Q0HbwVsqbIG3o5HDoFl9sduM+g==}
 
   '@types/geojson@7946.0.16':
     resolution: {integrity: sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==}
 
-  '@types/node@26.6.5':
-    resolution: {integrity: sha512-uMzsv9stDdofIZBx4UGh4Z9ZgXnGC9seRDscilBcTHAeOFk67MZg/k9bWVfO+bk4qZmG+l52hRnLwUiH2LnJTg==}
+  '@types/node@26.6.6':
+    resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
 
   '@types/polylabel@1.1.3':
     resolution: {integrity: sha512-9Zw2KoDpi+T4PZz2G6pO2xArE0m/GSMTW1MIxF2s8ZY8x9XDO6fv9um0ydRGvcbkFLlaq8yNK6eZxnmMZtDgWQ==}
@@ -1050,35 +1046,35 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@vaadin/a11y-base@25.3.4':
-    resolution: {integrity: sha512-EVsRX5CWL7TtB4sEN/TiceVU6GKZ5UblEFDtPzy7bX/LUIA4mG7dcg2heKdnEjHbJsWMgzWAeV1cNvTaxy/1tg==}
+  '@vaadin/a11y-base@25.3.5':
+    resolution: {integrity: sha512-c7y7e4oKtwSIAvzLQxgAPvifKWNOlZhmbOyDdGHcxHA+Hesr/8BJkDGTSCkL7acrXS0s//ne25tiCY0ZPjoiNg==}
 
-  '@vaadin/checkbox@25.3.4':
-    resolution: {integrity: sha512-F1eRrJw89Y6tz4dTC6J/s8DtIvaAT/1xde0dLrl8GhZNy2sIvTVAWZ+tp1QTRbmJjrmsKVFotSLmEGRGaAynnQ==}
+  '@vaadin/checkbox@25.3.5':
+    resolution: {integrity: sha512-tRl1vUFy5OUqv6/AHjrEvHNvFqzKNOjNtf8t19/In3f1lSkDawAj8yJWAf+I/rxxRIXcZi/0Qenqg3au4gt9Jw==}
 
-  '@vaadin/component-base@25.3.4':
-    resolution: {integrity: sha512-X4fp7Jegw3b1vmFYBqFkQ9+jfG8SHCo+xbHfXK0DjgMCFDoaVQAEgmBDR78vFMgaQce5Y/2xW5yCyPOqguaFxw==}
+  '@vaadin/component-base@25.3.5':
+    resolution: {integrity: sha512-c/yIxHcmaSDpWuGv5tefkRYQoMXch3gQYlxhX7EvC4pip3QqlSjxdLyw1k2gMI38N6/W9QPmxNQ0eRa6NgbQ8g==}
 
-  '@vaadin/field-base@25.3.4':
-    resolution: {integrity: sha512-b8uWHTYe1QOKfhbn5NRzCA7wl15uQLk3lIHKADeoS064tRZgruHp8hLrYfdKFEooWgqmI9GTveEcwdEOgcDt8w==}
+  '@vaadin/field-base@25.3.5':
+    resolution: {integrity: sha512-2fcDV3mtCxoX9EHf50Gt+X8KEyhD8zwHuzLt8eAfIPZpdai0gMtlyfS+6p8iI8V8b0Iyt+VqdxKiekIlngAFcg==}
 
-  '@vaadin/grid@25.3.4':
-    resolution: {integrity: sha512-00LcybUxH/zHhvHsouEf/dFscPo9CsU+XXHmldrDqnANyDCmzceUA0FYq6EdxOfkp9c4ZRs6oseX18BmbGNAGg==}
+  '@vaadin/grid@25.3.5':
+    resolution: {integrity: sha512-8NvmkgV3GfLD0NRAUtLhleBM7YYk6rdY4++nERe5L9uglb5/ZKzD96VxF5M5Z/U1FROdoBRnAWm8nJz3XCMprA==}
 
-  '@vaadin/input-container@25.3.4':
-    resolution: {integrity: sha512-t12KIKpUVDueRKS5TFPilj/58oheqCWR5p6oaENSOpxCoPCcdvwX30AW2/bXLh0gFjnVHUqff+Vy1GvWGXjhYA==}
+  '@vaadin/input-container@25.3.5':
+    resolution: {integrity: sha512-F9UfFJuXu052+fkKl0RdhB6/d0zLZsncVCTdr7Jg0WMvXlWcCQV0XXhgQe9Pj+rihEBnYeyKp6Ou2KMSgo2Lsw==}
 
-  '@vaadin/lit-renderer@25.3.4':
-    resolution: {integrity: sha512-zGIS8N7W0zgQNIzGVxLhWt+YesuATwsaX3SWfa6Sxqgvu3Rfti/pfdX9f4HI7XIJ4xSuw+FOBTlJk3L/yQ8oSg==}
+  '@vaadin/lit-renderer@25.3.5':
+    resolution: {integrity: sha512-kP/kptqXgsnSuK4c23UcjI1eGCki4hlWi/GkrZtfUnklKJ/Kx7TtKmvfSLqN2k9SpRTziHzerd0Eoff0uI++qg==}
 
-  '@vaadin/text-field@25.3.4':
-    resolution: {integrity: sha512-CU0jnI3ZV2hrAslHQ0pYb+dmq2mpXQ8CycUNp3xVEjrKdmRReaU32BV+GNroIxJbfRuAVHixVk0uCjTLhxS4UA==}
+  '@vaadin/text-field@25.3.5':
+    resolution: {integrity: sha512-TlvPFL72ilKJDOXSJ05LVJRimd/eza4YFBbtTSky8G75zLKQky7dzW8uoD+MsTsmCDccUCIGJ8Et7DKsaAdZSQ==}
 
   '@vaadin/vaadin-development-mode-detector@2.0.7':
     resolution: {integrity: sha512-9FhVhr0ynSR3X2ao+vaIEttcNU5XfzCbxtmYOV8uIRnUCtNgbvMOIcyGBvntsX9I5kvIP2dV3cFAOG9SILJzEA==}
 
-  '@vaadin/vaadin-themable-mixin@25.3.4':
-    resolution: {integrity: sha512-AJOgRSeCOEdD+dj2dbpgl5PpXr/wQU+M4ZC6FZyrkCP/j0DiCZ4J7q7n7240mguigLPMmWj7Qlray786RtyS3w==}
+  '@vaadin/vaadin-themable-mixin@25.3.5':
+    resolution: {integrity: sha512-5xi/gN1iz1ybWFNcskwZ2eJLHld+KX/IgA9CEEJ6iV38ZivXZujkbjjlmO7DltDbB1h1v/ZEYqJHVedQczQo4w==}
 
   '@vaadin/vaadin-usage-statistics@2.1.3':
     resolution: {integrity: sha512-8r4TNknD7OJQADe3VygeofFR7UNAXZ2/jjBFP5dgI8+2uMfnuGYgbuHivasKr9WSQ64sPej6m8rDoM1uSllXjQ==}
@@ -2090,12 +2086,12 @@ snapshots:
       svg-arc-to-cubic-bezier: 3.2.0
       tslib: 2.8.1
 
-  '@arcgis/common-components@5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
+  '@arcgis/common-components@5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
     dependencies:
-      '@arcgis/core': 5.2.0-next.162
-      '@arcgis/lumina': 5.2.0-next.162(lit@3.3.3)
-      '@arcgis/lumina-toolkit': 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@arcgis/lumina@5.2.0-next.162(lit@3.3.3))
-      '@arcgis/toolkit': 5.2.0-next.162
+      '@arcgis/core': 5.2.0-next.163
+      '@arcgis/lumina': 5.2.0-next.163(lit@3.3.3)
+      '@arcgis/lumina-toolkit': 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@arcgis/lumina@5.2.0-next.163(lit@3.3.3))
+      '@arcgis/toolkit': 5.2.0-next.163
       '@esri/arcgis-html-sanitizer': 4.2.0-next.2
       '@esri/calcite-components': 5.2.0(luxon@3.7.2)
       '@lit/task': 1.0.3
@@ -2104,13 +2100,13 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/core@5.2.0-next.162':
+  '@arcgis/core@5.2.0-next.163':
     dependencies:
       '@amcharts/amcharts5': 5.20.8
-      '@arcgis/toolkit': 5.2.0-next.162
+      '@arcgis/toolkit': 5.2.0-next.163
       '@esri/arcgis-html-sanitizer': 4.2.0-next.2
       '@esri/calcite-components': 5.2.0(luxon@3.7.2)
-      '@vaadin/grid': 25.3.4
+      '@vaadin/grid': 25.3.5
       '@zip.js/zip.js': 2.23.0
       luxon: 3.7.2
       marked: 18.1.2
@@ -2122,27 +2118,27 @@ snapshots:
       - dayjs
       - moment-timezone
 
-  '@arcgis/lumina-toolkit@5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@arcgis/lumina@5.2.0-next.162(lit@3.3.3))':
+  '@arcgis/lumina-toolkit@5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@arcgis/lumina@5.2.0-next.163(lit@3.3.3))':
     dependencies:
-      '@arcgis/core': 5.2.0-next.162
-      '@arcgis/lumina': 5.2.0-next.162(lit@3.3.3)
+      '@arcgis/core': 5.2.0-next.163
+      '@arcgis/lumina': 5.2.0-next.163(lit@3.3.3)
       tslib: 2.8.1
 
-  '@arcgis/lumina@5.2.0-next.162(lit@3.3.3)':
+  '@arcgis/lumina@5.2.0-next.163(lit@3.3.3)':
     dependencies:
-      '@arcgis/toolkit': 5.2.0-next.162
+      '@arcgis/toolkit': 5.2.0-next.163
       csstype: 3.2.3
       lit: 3.3.3
       tslib: 2.8.1
 
-  '@arcgis/map-components@5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
+  '@arcgis/map-components@5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))':
     dependencies:
       '@amcharts/amcharts5': 5.20.8
-      '@arcgis/common-components': 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@esri/calcite-components@5.2.0(luxon@3.7.2))
-      '@arcgis/core': 5.2.0-next.162
-      '@arcgis/lumina': 5.2.0-next.162(lit@3.3.3)
-      '@arcgis/lumina-toolkit': 5.2.0-next.162(@arcgis/core@5.2.0-next.162)(@arcgis/lumina@5.2.0-next.162(lit@3.3.3))
-      '@arcgis/toolkit': 5.2.0-next.162
+      '@arcgis/common-components': 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@esri/calcite-components@5.2.0(luxon@3.7.2))
+      '@arcgis/core': 5.2.0-next.163
+      '@arcgis/lumina': 5.2.0-next.163(lit@3.3.3)
+      '@arcgis/lumina-toolkit': 5.2.0-next.163(@arcgis/core@5.2.0-next.163)(@arcgis/lumina@5.2.0-next.163(lit@3.3.3))
+      '@arcgis/toolkit': 5.2.0-next.163
       '@esri/calcite-components': 5.2.0(luxon@3.7.2)
       es-toolkit: 1.53.0
       lit: 3.3.3
@@ -2150,7 +2146,7 @@ snapshots:
     transitivePeerDependencies:
       - '@lit/context'
 
-  '@arcgis/toolkit@5.2.0-next.162':
+  '@arcgis/toolkit@5.2.0-next.163':
     dependencies:
       tslib: 2.8.1
 
@@ -2172,8 +2168,8 @@ snapshots:
 
   '@esri/calcite-components@5.2.0(luxon@3.7.2)':
     dependencies:
-      '@arcgis/lumina': 5.2.0-next.162(lit@3.3.3)
-      '@arcgis/toolkit': 5.2.0-next.162
+      '@arcgis/lumina': 5.2.0-next.163(lit@3.3.3)
+      '@arcgis/toolkit': 5.2.0-next.163
       '@esri/calcite-design-tokens': 4.2.0
       '@esri/calcite-ui-icons': 4.6.0
       '@floating-ui/dom': 1.8.0
@@ -2539,11 +2535,11 @@ snapshots:
 
   '@types/deep-eql@4.0.2': {}
 
-  '@types/estree@1.0.9': {}
+  '@types/estree@1.0.10': {}
 
   '@types/geojson@7946.0.16': {}
 
-  '@types/node@26.6.5':
+  '@types/node@26.6.6':
     dependencies:
       undici-types: 8.9.0
 
@@ -2615,84 +2611,84 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@vaadin/a11y-base@25.3.4':
+  '@vaadin/a11y-base@25.3.5':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/component-base': 25.3.4
+      '@vaadin/component-base': 25.3.5
       lit: 3.3.3
 
-  '@vaadin/checkbox@25.3.4':
+  '@vaadin/checkbox@25.3.5':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/a11y-base': 25.3.4
-      '@vaadin/component-base': 25.3.4
-      '@vaadin/field-base': 25.3.4
-      '@vaadin/vaadin-themable-mixin': 25.3.4
+      '@vaadin/a11y-base': 25.3.5
+      '@vaadin/component-base': 25.3.5
+      '@vaadin/field-base': 25.3.5
+      '@vaadin/vaadin-themable-mixin': 25.3.5
       lit: 3.3.3
 
-  '@vaadin/component-base@25.3.4':
+  '@vaadin/component-base@25.3.5':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
       '@vaadin/vaadin-development-mode-detector': 2.0.7
       '@vaadin/vaadin-usage-statistics': 2.1.3
       lit: 3.3.3
 
-  '@vaadin/field-base@25.3.4':
+  '@vaadin/field-base@25.3.5':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/a11y-base': 25.3.4
-      '@vaadin/component-base': 25.3.4
+      '@vaadin/a11y-base': 25.3.5
+      '@vaadin/component-base': 25.3.5
       lit: 3.3.3
 
-  '@vaadin/grid@25.3.4':
+  '@vaadin/grid@25.3.5':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/a11y-base': 25.3.4
-      '@vaadin/checkbox': 25.3.4
-      '@vaadin/component-base': 25.3.4
-      '@vaadin/lit-renderer': 25.3.4
-      '@vaadin/text-field': 25.3.4
-      '@vaadin/vaadin-themable-mixin': 25.3.4
+      '@vaadin/a11y-base': 25.3.5
+      '@vaadin/checkbox': 25.3.5
+      '@vaadin/component-base': 25.3.5
+      '@vaadin/lit-renderer': 25.3.5
+      '@vaadin/text-field': 25.3.5
+      '@vaadin/vaadin-themable-mixin': 25.3.5
       lit: 3.3.3
 
-  '@vaadin/input-container@25.3.4':
+  '@vaadin/input-container@25.3.5':
     dependencies:
-      '@vaadin/component-base': 25.3.4
-      '@vaadin/vaadin-themable-mixin': 25.3.4
+      '@vaadin/component-base': 25.3.5
+      '@vaadin/vaadin-themable-mixin': 25.3.5
       lit: 3.3.3
 
-  '@vaadin/lit-renderer@25.3.4':
+  '@vaadin/lit-renderer@25.3.5':
     dependencies:
       lit: 3.3.3
 
-  '@vaadin/text-field@25.3.4':
+  '@vaadin/text-field@25.3.5':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/a11y-base': 25.3.4
-      '@vaadin/component-base': 25.3.4
-      '@vaadin/field-base': 25.3.4
-      '@vaadin/input-container': 25.3.4
-      '@vaadin/vaadin-themable-mixin': 25.3.4
+      '@vaadin/a11y-base': 25.3.5
+      '@vaadin/component-base': 25.3.5
+      '@vaadin/field-base': 25.3.5
+      '@vaadin/input-container': 25.3.5
+      '@vaadin/vaadin-themable-mixin': 25.3.5
       lit: 3.3.3
 
   '@vaadin/vaadin-development-mode-detector@2.0.7': {}
 
-  '@vaadin/vaadin-themable-mixin@25.3.4':
+  '@vaadin/vaadin-themable-mixin@25.3.5':
     dependencies:
       '@open-wc/dedupe-mixin': 1.4.0
-      '@vaadin/component-base': 25.3.4
+      '@vaadin/component-base': 25.3.5
       lit: 3.3.3
 
   '@vaadin/vaadin-usage-statistics@2.1.3':
     dependencies:
       '@vaadin/vaadin-development-mode-detector': 2.0.7
 
-  '@vitest/browser-preview@5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)':
+  '@vitest/browser-preview@5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)':
     dependencies:
       '@testing-library/dom': 10.4.2
       '@testing-library/user-event': 14.6.8(@testing-library/dom@10.4.2)
-      '@vitest/browser': 5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)
-      vitest: 5.0.5(@types/node@26.6.5)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      '@vitest/browser': 5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)
+      vitest: 5.0.5(@types/node@26.6.6)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
       - '@types/node'
@@ -2719,17 +2715,17 @@ snapshots:
       - vue-tsc
       - yaml
 
-  '@vitest/browser@5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)':
+  '@vitest/browser@5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)':
     dependencies:
       '@blazediff/core': 1.10.0
-      '@vitest/mocker': 5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      '@vitest/mocker': 5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
       '@vitest/ui': 5.0.5(vitest@5.0.5)
       '@vitest/utils': 5.0.5
       magic-string: 1.4.5
       pngjs: 7.0.0
       sirv: 3.0.2
       tinyrainbow: 3.2.0
-      vitest: 5.0.5(@types/node@26.6.5)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      vitest: 5.0.5(@types/node@26.6.6)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
       ws: 8.22.0
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
@@ -2757,13 +2753,13 @@ snapshots:
       - vue-tsc
       - yaml
 
-  '@vitest/mocker@5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)':
+  '@vitest/mocker@5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.5
       estree-walker: 3.0.3
       magic-string: 1.4.5
-      vite: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+      vite: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
       - '@types/node'
@@ -2808,7 +2804,7 @@ snapshots:
       pathe: 2.0.3
       sirv: 3.0.2
       tinyrainbow: 3.2.0
-      vitest: 5.0.5(@types/node@26.6.5)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      vitest: 5.0.5(@types/node@26.6.6)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   '@vitest/utils@5.0.5':
     dependencies:
@@ -2816,7 +2812,7 @@ snapshots:
       convert-source-map: 2.0.0
       tinyrainbow: 3.2.0
 
-  '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)':
+  '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)':
     dependencies:
       '@oxc-project/runtime': 0.155.0
       '@oxc-project/types': 0.155.0
@@ -2824,7 +2820,7 @@ snapshots:
       postcss: 8.5.32
       yuku-parser: 0.19.0
     optionalDependencies:
-      '@types/node': 26.6.5
+      '@types/node': 26.6.6
       '@voidzero-dev/vite-plus-darwin-arm64': 1.4.0
       '@voidzero-dev/vite-plus-darwin-x64': 1.4.0
       '@voidzero-dev/vite-plus-linux-arm64-gnu': 1.4.0
@@ -3180,7 +3176,7 @@ snapshots:
 
   estree-walker@3.0.3:
     dependencies:
-      '@types/estree': 1.0.9
+      '@types/estree': 1.0.10
 
   expect-type@1.4.0: {}
 
@@ -3321,7 +3317,7 @@ snapshots:
 
   obug@3.0.0: {}
 
-  oxfmt@0.74.0(vite-plus@1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)):
+  oxfmt@0.74.0(vite-plus@1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)):
     dependencies:
       tinypool: 2.2.0
     optionalDependencies:
@@ -3344,7 +3340,7 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.74.0
       '@oxfmt/binding-win32-ia32-msvc': 0.74.0
       '@oxfmt/binding-win32-x64-msvc': 0.74.0
-      vite-plus: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      vite-plus: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   oxlint-tsgolint@7.0.2004:
     optionalDependencies:
@@ -3355,7 +3351,7 @@ snapshots:
       '@oxlint-tsgolint/win32-arm64': 7.0.2004
       '@oxlint-tsgolint/win32-x64': 7.0.2004
 
-  oxlint@1.89.0(oxlint-tsgolint@7.0.2004)(vite-plus@1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)):
+  oxlint@1.89.0(oxlint-tsgolint@7.0.2004)(vite-plus@1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)):
     optionalDependencies:
       '@oxlint/binding-android-arm-eabi': 1.89.0
       '@oxlint/binding-android-arm64': 1.89.0
@@ -3377,7 +3373,7 @@ snapshots:
       '@oxlint/binding-win32-ia32-msvc': 1.89.0
       '@oxlint/binding-win32-x64-msvc': 1.89.0
       oxlint-tsgolint: 7.0.2004
-      vite-plus: 1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      vite-plus: 1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
 
   package-manager-detector@1.9.0: {}
 
@@ -3537,23 +3533,23 @@ snapshots:
       pako: 0.2.9
       tiny-inflate: 1.0.3
 
-  vite-plus@1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1):
+  vite-plus@1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1):
     dependencies:
       '@oxc-project/runtime': 0.155.0
       '@oxc-project/types': 0.155.0
       '@oxlint/plugins': 1.89.0
-      '@vitest/browser': 5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)
-      '@vitest/browser-preview': 5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)
-      '@vitest/mocker': 5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      '@vitest/browser': 5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)
+      '@vitest/browser-preview': 5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)
+      '@vitest/mocker': 5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
       '@vitest/pretty-format': 5.0.5
       '@vitest/snapshot': 5.0.5
       '@vitest/spy': 5.0.5
       '@vitest/utils': 5.0.5
-      oxfmt: 0.74.0(vite-plus@1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))
-      oxlint: 1.89.0(oxlint-tsgolint@7.0.2004)(vite-plus@1.4.0(@types/node@26.6.5)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))
+      oxfmt: 0.74.0(vite-plus@1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))
+      oxlint: 1.89.0(oxlint-tsgolint@7.0.2004)(vite-plus@1.4.0(@types/node@26.6.6)(@vitest/ui@5.0.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))
       oxlint-tsgolint: 7.0.2004
-      vite: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
-      vitest: 5.0.5(@types/node@26.6.5)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      vite: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+      vitest: 5.0.5(@types/node@26.6.6)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
     optionalDependencies:
       '@voidzero-dev/vite-plus-darwin-arm64': 1.4.0
       '@voidzero-dev/vite-plus-darwin-x64': 1.4.0
@@ -3598,10 +3594,10 @@ snapshots:
       - vue-tsc
       - yaml
 
-  vitest@5.0.5(@types/node@26.6.5)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1):
+  vitest@5.0.5(@types/node@26.6.6)(@vitest/browser-preview@5.0.5)(@vitest/ui@5.0.5)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
+      '@vitest/mocker': 5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -3612,11 +3608,11 @@ snapshots:
       tinybench: 6.2.2
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
+      vite: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)'
       why-is-node-running: 3.2.1
     optionalDependencies:
-      '@types/node': 26.6.5
-      '@vitest/browser-preview': 5.0.5(@types/node@26.6.5)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)
+      '@types/node': 26.6.6
+      '@vitest/browser-preview': 5.0.5(@types/node@26.6.6)(jiti@2.7.0)(typescript@7.0.2)(vitest@5.0.5)(yaml@2.9.1)
       '@vitest/ui': 5.0.5(vitest@5.0.5)
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
