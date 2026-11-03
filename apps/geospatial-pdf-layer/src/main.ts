@@ -1,6 +1,8 @@
 import Collection from "@arcgis/core/core/Collection.js";
 import GeospatialPDFLayer from "@arcgis/core/layers/GeospatialPDFLayer.js";
 import ActionButton from "@arcgis/core/support/actions/ActionButton.js";
+import "@arcgis/map-components/components/arcgis-basemap-gallery";
+import "@arcgis/map-components/components/arcgis-expand";
 import "@arcgis/map-components/components/arcgis-layer-list-next";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-zoom";
