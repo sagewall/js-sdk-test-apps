@@ -1,5 +1,6 @@
 import Collection from "@arcgis/core/core/Collection.js";
 import GeospatialPDFLayer from "@arcgis/core/layers/GeospatialPDFLayer.js";
+import MediaLayer from "@arcgis/core/layers/MediaLayer.js";
 import ActionButton from "@arcgis/core/support/actions/ActionButton.js";
 import "@arcgis/map-components/components/arcgis-basemap-gallery";
 import "@arcgis/map-components/components/arcgis-expand";
@@ -14,6 +15,7 @@ import "@esri/calcite-components/components/calcite-panel";
 import "@esri/calcite-components/components/calcite-shell";
 import "@esri/calcite-components/components/calcite-shell-panel";
 import "@esri/calcite-components/components/calcite-switch";
+import { convertPDFToMediaLayer } from "./pdf-to-media";
 import "./style.css";
 
 const viewElement = document.querySelector("arcgis-map")!;
@@ -29,15 +31,28 @@ let loading = false;
 let dragDepth = 0;
 let dropHandled = false;
 
-// Add a trash action to each PDF's layer-list entry.
 layerList.listItemCreatedFunction = ({ item }) => {
-  if (!isGeospatialPDFLayer(item.layer)) return;
+  const layer = item.layer;
+  if (
+    item.content.type !== "layer" ||
+    (!isGeospatialPDFLayer(layer) && !(layer instanceof MediaLayer))
+  )
+    return;
   // Each Collection added to actionsSections represents one group of actions.
   item.actionsSections.add(
     new Collection([
+      ...(isGeospatialPDFLayer(layer)
+        ? [
+            new ActionButton({
+              id: "create-media-layer",
+              title: "Create MediaLayer",
+              icon: "media-layer",
+            }),
+          ]
+        : []),
       new ActionButton({
-        id: "remove-pdf",
-        title: `Remove ${item.layer?.title}`,
+        id: "remove-layer",
+        title: `Remove ${layer.title}`,
         icon: "trash",
       }),
     ]),
@@ -46,17 +61,25 @@ layerList.listItemCreatedFunction = ({ item }) => {
 
 layerList.addEventListener("arcgisTriggerAction", (event) => {
   const { action, item } = event.detail;
-  if (action.id !== "remove-pdf" || !isGeospatialPDFLayer(item.layer)) return;
-  if (loading) {
-    showStatus("Please wait", "Wait for the PDF to finish loading before removing a layer.");
+  const layer = item.layer;
+  if (action.id === "create-media-layer" && isGeospatialPDFLayer(layer)) {
+    void addMediaLayer(layer);
     return;
   }
-  const layer = item.layer;
+  if (
+    action.id !== "remove-layer" ||
+    (!isGeospatialPDFLayer(layer) && !(layer instanceof MediaLayer))
+  )
+    return;
+  if (loading) {
+    showStatus("Please wait", "Wait for the PDF operation to finish before removing a layer.");
+    return;
+  }
   const title = layer.title ?? "Geospatial PDF";
   viewElement.map?.remove(layer);
   // Removing a layer does not destroy it; release its raster resources and object URL explicitly.
   layer.destroy();
-  showStatus("PDF removed", title, "success");
+  showStatus("Layer removed", title, "success");
 });
 
 const statusIcons = {
@@ -74,6 +97,40 @@ function showStatus(title: string, message: string, kind: StatusKind = "info") {
   status.icon = statusIcons[kind];
   statusTitle.textContent = title;
   statusMessage.textContent = message;
+}
+
+async function addMediaLayer(pdfLayer: GeospatialPDFLayer) {
+  if (loading) {
+    showStatus("Please wait", "A PDF operation is already in progress.");
+    return;
+  }
+  loading = true;
+  chooseButton.disabled = true;
+  clipSwitch.disabled = true;
+  showStatus("Creating MediaLayer", pdfLayer.title ?? "Geospatial PDF");
+  let mediaLayer: MediaLayer | undefined;
+  try {
+    await viewElement.viewOnReady();
+    const map = viewElement.map;
+    if (!map) throw new Error("The map is not available.");
+    mediaLayer = await convertPDFToMediaLayer(pdfLayer, viewElement.spatialReference);
+    map.add(mediaLayer, map.layers.indexOf(pdfLayer) + 1);
+    await viewElement.whenLayerView(mediaLayer);
+    await mediaLayer.load();
+    pdfLayer.visible = false;
+    showStatus("MediaLayer created", mediaLayer.title ?? "PDF image", "success");
+  } catch (error) {
+    if (mediaLayer) {
+      viewElement.map?.remove(mediaLayer);
+      mediaLayer.destroy();
+    }
+    console.error("Unable to convert geospatial PDF", error);
+    showStatus("Unable to create MediaLayer", String(error), "danger");
+  } finally {
+    loading = false;
+    chooseButton.disabled = false;
+    clipSwitch.disabled = false;
+  }
 }
 
 // Both drag-and-drop and the file picker use the same loading workflow.

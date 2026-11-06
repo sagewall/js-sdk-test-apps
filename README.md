@@ -52,6 +52,31 @@ Replace the argument with your repository's Pages base path, or `/` for a domain
 root. Deployment builds disable task caching to avoid reusing another base path's
 assets. The assembled static site is in `dist/`.
 
+## PDF to MediaLayer
+
+In the geospatial PDF app, use a PDF layer's **Create MediaLayer** action to add
+a raster image of the document. The original PDF is retained but hidden after
+successful conversion; both layers can be toggled or removed in the layer list.
+
+Conversion uses the PDF raster engine to bake the embedded page-to-map transform
+and reprojection into image pixels in the current view's spatial reference. The
+returned raster extent positions the image with `ExtentAndRotationGeoreference`;
+the original page image is not simply stretched over the PDF's bounding extent.
+The current neatline setting is captured as image transparency and does not
+change when the clip switch is subsequently toggled.
+
+The longest image dimension is capped at 2048 pixels for GPU compatibility. The
+result is an in-memory canvas, not an encoded or uploaded image, and is not a
+durable WebMap asset. Its projection is fixed at conversion time; moving it to a
+different view projection can introduce MediaLayer's linear reprojection
+limitations. Convert again for that view to preserve the raster reprojection.
+The PDF engine's existing reprojection limitations, including unsupported
+grid-based datum transformations, still apply.
+
+This prototype depends on internal `GeospatialPDFLayer` hooks:
+`getCompatibleFullExtent`, `fetchPixels`, and `createNeatline`. They are guarded
+at runtime but may change between SDK builds.
+
 ## Development
 
 - Check everything is ready:
