@@ -49,9 +49,23 @@
           <calcite-block heading="Loaded layers" expanded>
             <arcgis-layer-list-next reference-element="pdf-map"></arcgis-layer-list-next>
           </calcite-block>
+          <calcite-block heading="Save WebMap" expanded>
+            <calcite-input-text
+              id="webmap-title"
+              label-text="WebMap title"
+              value="Geospatial PDF WebMap"
+              required
+            ></calcite-input-text>
+            <calcite-button id="save-webmap" icon-start="save" width="full">
+              Save new WebMap
+            </calcite-button>
+            <calcite-link id="saved-webmap-link" hidden target="_blank" rel="noopener">
+              Open saved WebMap
+            </calcite-link>
+          </calcite-block>
         </calcite-panel>
       </calcite-shell-panel>
-      <arcgis-map id="pdf-map" basemap="topo" center="-98,39" zoom="4">
+      <arcgis-map id="pdf-map" center="-98,39" zoom="4">
         <arcgis-zoom slot="top-left"></arcgis-zoom>
         <arcgis-expand slot="bottom-left">
           <arcgis-basemap-gallery></arcgis-basemap-gallery>

@@ -1,7 +1,10 @@
 import Collection from "@arcgis/core/core/Collection.js";
 import GeospatialPDFLayer from "@arcgis/core/layers/GeospatialPDFLayer.js";
 import MediaLayer from "@arcgis/core/layers/MediaLayer.js";
+import Portal from "@arcgis/core/portal/Portal.js";
+import PortalItem from "@arcgis/core/portal/PortalItem.js";
 import ActionButton from "@arcgis/core/support/actions/ActionButton.js";
+import WebMap from "@arcgis/core/WebMap.js";
 import "@arcgis/map-components/components/arcgis-basemap-gallery";
 import "@arcgis/map-components/components/arcgis-expand";
 import "@arcgis/map-components/components/arcgis-layer-list-next";
@@ -9,13 +12,16 @@ import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-zoom";
 import "@esri/calcite-components/components/calcite-block";
 import "@esri/calcite-components/components/calcite-button";
+import "@esri/calcite-components/components/calcite-input-text";
 import "@esri/calcite-components/components/calcite-label";
+import "@esri/calcite-components/components/calcite-link";
 import "@esri/calcite-components/components/calcite-notice";
 import "@esri/calcite-components/components/calcite-panel";
 import "@esri/calcite-components/components/calcite-shell";
 import "@esri/calcite-components/components/calcite-shell-panel";
 import "@esri/calcite-components/components/calcite-switch";
 import { convertPDFToMediaLayer } from "./pdf-to-media";
+import { createSaveableWebMap, isSaveCancelled } from "./save-webmap";
 import "./style.css";
 
 const viewElement = document.querySelector("arcgis-map")!;
@@ -27,6 +33,11 @@ const status = document.querySelector<HTMLCalciteNoticeElement>("#status")!;
 const statusTitle = document.querySelector("#status-title")!;
 const statusMessage = document.querySelector("#status-message")!;
 const layerList = document.querySelector("arcgis-layer-list-next")!;
+const saveButton = document.querySelector<HTMLCalciteButtonElement>("#save-webmap")!;
+const titleInput = document.querySelector<HTMLCalciteInputTextElement>("#webmap-title")!;
+const savedWebMapLink = document.querySelector<HTMLCalciteLinkElement>("#saved-webmap-link")!;
+const webMap = new WebMap({ basemap: "topo" });
+viewElement.map = webMap;
 let loading = false;
 let dragDepth = 0;
 let dropHandled = false;
@@ -72,7 +83,7 @@ layerList.addEventListener("arcgisTriggerAction", (event) => {
   )
     return;
   if (loading) {
-    showStatus("Please wait", "Wait for the PDF operation to finish before removing a layer.");
+    showStatus("Please wait", "Wait for the map operation to finish before removing a layer.");
     return;
   }
   const title = layer.title ?? "Geospatial PDF";
@@ -99,12 +110,71 @@ function showStatus(title: string, message: string, kind: StatusKind = "info") {
   statusMessage.textContent = message;
 }
 
+function updateSaveButton() {
+  saveButton.disabled = loading || !titleInput.value.trim();
+}
+
+titleInput.addEventListener("calciteInputTextInput", updateSaveButton);
+saveButton.addEventListener("click", async () => {
+  if (loading || !titleInput.value.trim()) return;
+  loading = true;
+  updateSaveButton();
+  saveButton.loading = true;
+  titleInput.disabled = true;
+  chooseButton.disabled = true;
+  clipSwitch.disabled = true;
+  savedWebMapLink.hidden = true;
+  showStatus("Saving WebMap", "Connecting to ArcGIS Online");
+  let snapshot: WebMap | undefined;
+  try {
+    const portal = new Portal({ url: "https://www.arcgis.com", authMode: "immediate" });
+    await portal.load();
+    await viewElement.viewOnReady();
+    await webMap.updateFrom(viewElement.view);
+    showStatus("Saving WebMap", "Preparing map images");
+    snapshot = await createSaveableWebMap(webMap, viewElement.spatialReference);
+    await snapshot.loadAll();
+    const item = await snapshot.saveAs(
+      new PortalItem({
+        portal,
+        title: titleInput.value.trim(),
+        description:
+          "Created with the geospatial PDF test app. PDF layers are saved as georeferenced images.",
+      }),
+    );
+    if (!item.id) throw new Error("ArcGIS Online did not return a WebMap item ID.");
+    savedWebMapLink.href = `https://www.arcgis.com/apps/mapviewer/index.html?webmap=${encodeURIComponent(item.id)}`;
+    savedWebMapLink.hidden = false;
+    showStatus("WebMap saved", item.title ?? titleInput.value.trim(), "success");
+  } catch (error) {
+    if (isSaveCancelled(error)) {
+      showStatus("Save cancelled", "No WebMap was created.");
+    } else {
+      console.error("Unable to save WebMap", error);
+      showStatus(
+        "Unable to save WebMap",
+        error instanceof Error ? error.message : String(error),
+        "danger",
+      );
+    }
+  } finally {
+    snapshot?.destroy();
+    loading = false;
+    saveButton.loading = false;
+    titleInput.disabled = false;
+    chooseButton.disabled = false;
+    clipSwitch.disabled = false;
+    updateSaveButton();
+  }
+});
+
 async function addMediaLayer(pdfLayer: GeospatialPDFLayer) {
   if (loading) {
-    showStatus("Please wait", "A PDF operation is already in progress.");
+    showStatus("Please wait", "A map operation is already in progress.");
     return;
   }
   loading = true;
+  updateSaveButton();
   chooseButton.disabled = true;
   clipSwitch.disabled = true;
   showStatus("Creating MediaLayer", pdfLayer.title ?? "Geospatial PDF");
@@ -128,6 +198,7 @@ async function addMediaLayer(pdfLayer: GeospatialPDFLayer) {
     showStatus("Unable to create MediaLayer", String(error), "danger");
   } finally {
     loading = false;
+    updateSaveButton();
     chooseButton.disabled = false;
     clipSwitch.disabled = false;
   }
@@ -136,7 +207,7 @@ async function addMediaLayer(pdfLayer: GeospatialPDFLayer) {
 // Both drag-and-drop and the file picker use the same loading workflow.
 async function addPDF(files: File[] | FileList) {
   if (loading) {
-    showStatus("Please wait", "A PDF is already loading. Drop your next file after it finishes.");
+    showStatus("Please wait", "A map operation is in progress. Drop your file after it finishes.");
     return;
   }
   // The extension only filters obvious invalid input; layer.load() validates the PDF and its georeferencing.
@@ -147,6 +218,7 @@ async function addPDF(files: File[] | FileList) {
 
   const file = files[0];
   loading = true;
+  updateSaveButton();
   chooseButton.loading = true;
   chooseButton.disabled = true;
   showStatus("Loading PDF", file.name);
@@ -193,6 +265,7 @@ async function addPDF(files: File[] | FileList) {
     showStatus("Unable to load PDF", String(error), "danger");
   } finally {
     loading = false;
+    updateSaveButton();
     chooseButton.loading = false;
     chooseButton.disabled = false;
   }

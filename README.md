@@ -66,8 +66,8 @@ The current neatline setting is captured as image transparency and does not
 change when the clip switch is subsequently toggled.
 
 The longest image dimension is capped at 2048 pixels for GPU compatibility. The
-result is an in-memory canvas, not an encoded or uploaded image, and is not a
-durable WebMap asset. Its projection is fixed at conversion time; moving it to a
+result initially lives in an in-memory canvas. Its projection is fixed at
+conversion time; moving it to a
 different view projection can introduce MediaLayer's linear reprojection
 limitations. Convert again for that view to preserve the raster reprojection.
 The PDF engine's existing reprojection limitations, including unsupported
@@ -76,6 +76,19 @@ grid-based datum transformations, still apply.
 This prototype depends on internal `GeospatialPDFLayer` hooks:
 `getCompatibleFullExtent`, `fetchPixels`, and `createNeatline`. They are guarded
 at runtime but may change between SDK builds.
+
+### Save to ArcGIS Online
+
+Enter a title and select **Save new WebMap** to sign in to ArcGIS Online and
+create a new private WebMap item. Each save creates a separate item; it does not
+overwrite an earlier save. The result link opens the saved map in Map Viewer.
+
+The saved snapshot includes the current basemap, view, layer order, and layer
+visibility. Local PDF layers are rasterized as MediaLayers for persistence,
+including hidden originals. The SDK encodes canvas images as PNG and uploads
+them as resources of the WebMap, with persisted control-point georeferencing.
+The live PDF and image layers are not replaced or modified by resource uploads.
+Saving requires an ArcGIS Online account with permission to create content.
 
 ## Development
 
