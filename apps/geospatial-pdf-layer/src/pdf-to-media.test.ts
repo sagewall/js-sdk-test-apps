@@ -3,7 +3,7 @@ import Polygon from "@arcgis/core/geometry/Polygon.js";
 import SpatialReference from "@arcgis/core/geometry/SpatialReference.js";
 import type GeospatialPDFLayer from "@arcgis/core/layers/GeospatialPDFLayer.js";
 import type { PixelData } from "@arcgis/core/layers/raster/types.js";
-import ExtentAndRotationGeoreference from "@arcgis/core/layers/support/ExtentAndRotationGeoreference.js";
+import ControlPointsGeoreference from "@arcgis/core/layers/support/ControlPointsGeoreference.js";
 import ImageElement from "@arcgis/core/layers/support/ImageElement.js";
 import PixelBlock from "@arcgis/core/layers/support/PixelBlock.js";
 import { afterEach, beforeEach, expect, test, vi } from "vite-plus/test";
@@ -96,9 +96,34 @@ test("requests projected pixels and georeferences the returned image extent", as
   expect(pdf.fetchPixels).toHaveBeenCalledWith(extent, 2048, 1024, { interpolation: "bilinear" });
   expect(layer.source).toBeInstanceOf(ImageElement);
   const image = layer.source as ImageElement;
-  expect(image.georeference).toBeInstanceOf(ExtentAndRotationGeoreference);
-  const georeference = image.georeference as ExtentAndRotationGeoreference;
-  expect(georeference.extent?.equals(imageExtent)).toBe(true);
+  expect(image.georeference).toBeInstanceOf(ControlPointsGeoreference);
+  const georeference = image.georeference as ControlPointsGeoreference;
+  expect(georeference.width).toBe(2);
+  expect(georeference.height).toBe(1);
+  expect(georeference.controlPoints).toHaveLength(4);
+  for (const [sourceX, sourceY, mapX, mapY] of [
+    [0, 0, 10, 70],
+    [2, 0, 110, 70],
+    [2, 1, 110, 20],
+    [0, 1, 10, 20],
+    [1, 0.5, 60, 45],
+  ]) {
+    const mapPoint = georeference.toMap({ x: sourceX, y: sourceY });
+    expect(mapPoint?.x).toBeCloseTo(mapX);
+    expect(mapPoint?.y).toBeCloseTo(mapY);
+    expect(mapPoint?.spatialReference.equals(spatialReference)).toBe(true);
+  }
+  expect(georeference.type).toBe("control-points");
+  expect(georeference.toJSON()).toMatchObject({
+    width: 2,
+    height: 1,
+    controlPoints: expect.arrayContaining([
+      expect.objectContaining({ x: 0, y: 0 }),
+      expect.objectContaining({ x: 2, y: 0 }),
+      expect.objectContaining({ x: 2, y: 1 }),
+      expect.objectContaining({ x: 0, y: 1 }),
+    ]),
+  });
   expect(canvas.width).toBe(2);
   expect(canvas.height).toBe(1);
   expect(context.putImageData.mock.calls[0][0].data).toEqual(

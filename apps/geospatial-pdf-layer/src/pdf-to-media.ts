@@ -1,9 +1,10 @@
 import type Extent from "@arcgis/core/geometry/Extent.js";
+import Point from "@arcgis/core/geometry/Point.js";
 import type Polygon from "@arcgis/core/geometry/Polygon.js";
 import type SpatialReference from "@arcgis/core/geometry/SpatialReference.js";
 import type GeospatialPDFLayer from "@arcgis/core/layers/GeospatialPDFLayer.js";
 import MediaLayer from "@arcgis/core/layers/MediaLayer.js";
-import ExtentAndRotationGeoreference from "@arcgis/core/layers/support/ExtentAndRotationGeoreference.js";
+import ControlPointsGeoreference from "@arcgis/core/layers/support/ControlPointsGeoreference.js";
 import ImageElement from "@arcgis/core/layers/support/ImageElement.js";
 import type { PixelData } from "@arcgis/core/layers/raster/types.js";
 
@@ -85,7 +86,44 @@ export async function convertPDFToMediaLayer(
     maxScale: layer.maxScale,
     source: new ImageElement({
       image: canvas,
-      georeference: new ExtentAndRotationGeoreference({ extent: imageExtent.clone() }),
+      georeference: new ControlPointsGeoreference({
+        width: canvas.width,
+        height: canvas.height,
+        controlPoints: [
+          {
+            sourcePoint: { x: 0, y: 0 },
+            mapPoint: new Point({
+              x: imageExtent.xmin,
+              y: imageExtent.ymax,
+              spatialReference: imageExtent.spatialReference,
+            }),
+          },
+          {
+            sourcePoint: { x: canvas.width, y: 0 },
+            mapPoint: new Point({
+              x: imageExtent.xmax,
+              y: imageExtent.ymax,
+              spatialReference: imageExtent.spatialReference,
+            }),
+          },
+          {
+            sourcePoint: { x: canvas.width, y: canvas.height },
+            mapPoint: new Point({
+              x: imageExtent.xmax,
+              y: imageExtent.ymin,
+              spatialReference: imageExtent.spatialReference,
+            }),
+          },
+          {
+            sourcePoint: { x: 0, y: canvas.height },
+            mapPoint: new Point({
+              x: imageExtent.xmin,
+              y: imageExtent.ymin,
+              spatialReference: imageExtent.spatialReference,
+            }),
+          },
+        ],
+      }),
     }),
   });
 }
