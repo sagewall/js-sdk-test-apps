@@ -6,13 +6,13 @@ packages:
 catalogMode: prefer
 
 catalog:
-  "@arcgis/core": ~5.2.0-next.169
-  "@arcgis/map-components": ~5.2.0-next.169
+  "@arcgis/core": ~5.2.0
+  "@arcgis/map-components": ~5.2.0
   "@esri/calcite-components": ~5.2.0
   "@types/node": ^24
   typescript: ^7.0.2
-  vite: npm:@voidzero-dev/vite-plus-core@1.5.0
-  vite-plus: 1.5.0
+  vite: npm:@voidzero-dev/vite-plus-core@1.5.1
+  vite-plus: 1.5.1
 overrides:
   vite@*: "catalog:"
 peerDependencyRules:
@@ -23,19 +23,13 @@ peerDependencyRules:
 allowBuilds:
   "@vaadin/vaadin-usage-statistics": true
 minimumReleaseAgeExclude:
-  - "@arcgis/common-components@5.2.0-next.161 || 5.2.0-next.169"
-  - "@arcgis/core@5.2.0-next.161 || 5.2.0-next.169"
-  - "@arcgis/lumina-toolkit@5.2.0-next.161 || 5.2.0-next.169"
-  - "@arcgis/lumina@5.2.0-next.161 || 5.2.0-next.169"
-  - "@arcgis/map-components@5.2.0-next.161 || 5.2.0-next.169"
-  - "@arcgis/toolkit@5.2.0-next.161 || 5.2.0-next.169"
-  - "@voidzero-dev/vite-plus-core@1.5.0"
-  - "@voidzero-dev/vite-plus-darwin-arm64@1.5.0"
-  - "@voidzero-dev/vite-plus-darwin-x64@1.5.0"
-  - "@voidzero-dev/vite-plus-linux-arm64-gnu@1.5.0"
-  - "@voidzero-dev/vite-plus-linux-arm64-musl@1.5.0"
-  - "@voidzero-dev/vite-plus-linux-x64-gnu@1.5.0"
-  - "@voidzero-dev/vite-plus-linux-x64-musl@1.5.0"
-  - "@voidzero-dev/vite-plus-win32-arm64-msvc@1.5.0"
-  - "@voidzero-dev/vite-plus-win32-x64-msvc@1.5.0"
-  - vite-plus@1.5.0
+  - "@voidzero-dev/vite-plus-core@1.5.0 || 1.5.1"
+  - "@voidzero-dev/vite-plus-darwin-arm64@1.5.0 || 1.5.1"
+  - "@voidzero-dev/vite-plus-darwin-x64@1.5.0 || 1.5.1"
+  - "@voidzero-dev/vite-plus-linux-arm64-gnu@1.5.0 || 1.5.1"
+  - "@voidzero-dev/vite-plus-linux-arm64-musl@1.5.0 || 1.5.1"
+  - "@voidzero-dev/vite-plus-linux-x64-gnu@1.5.0 || 1.5.1"
+  - "@voidzero-dev/vite-plus-linux-x64-musl@1.5.0 || 1.5.1"
+  - "@voidzero-dev/vite-plus-win32-arm64-msvc@1.5.0 || 1.5.1"
+  - "@voidzero-dev/vite-plus-win32-x64-msvc@1.5.0 || 1.5.1"
+  - vite-plus@1.5.0 || 1.5.1
