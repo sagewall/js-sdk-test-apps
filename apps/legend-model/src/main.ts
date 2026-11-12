@@ -5,6 +5,8 @@ import FeatureFilter from "@arcgis/core/layers/support/FeatureFilter.js";
 import type ActiveLayerInfo from "@arcgis/core/legend/ActiveLayerInfo.js";
 import LegendModel from "@arcgis/core/legend/LegendModel.js";
 import type { LegendElement, SymbolTableElementType } from "@arcgis/core/legend/types";
+import UniqueValueRenderer from "@arcgis/core/renderers/UniqueValueRenderer.js";
+import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol.js";
 import FeatureLayerView from "@arcgis/core/views/layers/FeatureLayerView.js";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-zoom";
@@ -21,31 +23,103 @@ import "./style.css";
 // Get the map view host and the container for generated legend sections.
 const viewElement = document.querySelector("arcgis-map")!;
 const legendSections = document.getElementById("legend-sections")!;
+const addLayerButton = document.querySelector<HTMLCalciteButtonElement>("#add-layer")!;
+const layerError = document.querySelector<HTMLCalciteNoticeElement>("#layer-error")!;
 
 // Keep category selections independent for each layer.
 const layerSelections = new Map<string, Set<string>>();
 
 // Wait for the map view before creating its legend model.
 await viewElement.viewOnReady();
+const map = viewElement.view.map;
+if (!map) {
+  throw new Error("The map view must have a map to initialize the legend sample.");
+}
 
 const legendModel = new LegendModel({
   view: viewElement.view,
 });
-const renderedLayerIds = new Set();
+const renderedLayers = new Map<
+  ActiveLayerInfo,
+  { block: HTMLCalciteBlockElement; version: number }
+>();
 
-// Re-render when layer readiness changes; renderLegend adds each ready layer once.
+// Layer identity tracks collection membership; version tracks legend content updates.
 watch(
-  () => legendModel.activeLayerInfos.map((activeLayerInfo) => activeLayerInfo.ready),
+  () =>
+    legendModel.activeLayerInfos.map((activeLayerInfo) => [
+      activeLayerInfo,
+      activeLayerInfo.version,
+    ]),
   renderLegend,
   { initial: true },
 );
 
+addLayerButton.disabled = false;
+addLayerButton.addEventListener("click", async () => {
+  addLayerButton.disabled = true;
+  addLayerButton.loading = true;
+  layerError.open = false;
+
+  const layer = new FeatureLayer({
+    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0",
+    title: "Cities by class",
+    outFields: ["class"],
+    renderer: new UniqueValueRenderer({
+      field: "class",
+      uniqueValueInfos: [
+        { value: "city", color: "#d1495b" },
+        { value: "city (consolidated, balance)", color: "#edae49" },
+        { value: "CDP", color: "#00798c" },
+        { value: "city and borough", color: "#30638e" },
+        { value: "town", color: "#6a994e" },
+        { value: "village", color: "#9b5de5" },
+        { value: "city and county", color: "#f15bb5" },
+        { value: "borough", color: "#8d6e63" },
+        { value: "municipality", color: "#555555" },
+      ].map(({ value, color }) => ({
+        value,
+        label: value,
+        symbol: new SimpleMarkerSymbol({ color, size: 6 }),
+      })),
+    }),
+  });
+
+  try {
+    await layer.load();
+    map.add(layer);
+    await viewElement.whenLayerView(layer);
+    addLayerButton.textContent = "Cities layer added";
+  } catch (error) {
+    map.remove(layer);
+    layer.destroy();
+    console.error("Failed to add the cities layer", error);
+    layerError.open = true;
+    addLayerButton.disabled = false;
+  } finally {
+    addLayerButton.loading = false;
+  }
+});
+
 function renderLegend() {
+  for (const [activeLayerInfo, { block }] of renderedLayers) {
+    if (!legendModel.activeLayerInfos.includes(activeLayerInfo) || !activeLayerInfo.ready) {
+      block.remove();
+      renderedLayers.delete(activeLayerInfo);
+    }
+  }
+
   for (const activeLayerInfo of legendModel.activeLayerInfos) {
-    // Skip layers whose legend is not ready or has already been rendered.
-    if (!activeLayerInfo.ready || renderedLayerIds.has(activeLayerInfo.layer.uid)) {
+    if (!activeLayerInfo.ready) {
       continue;
     }
+
+    const renderedLayer = renderedLayers.get(activeLayerInfo);
+    if (renderedLayer?.version === activeLayerInfo.version) {
+      legendSections.appendChild(renderedLayer.block);
+      continue;
+    }
+    renderedLayer?.block.remove();
 
     // Create a separate multi-select list for each layer.
     const block = document.createElement("calcite-block");
@@ -63,14 +137,14 @@ function renderLegend() {
     clearButton.scale = "s";
     clearButton.label = `Clear selections for ${activeLayerInfo.title}`;
     clearButton.textContent = "Clear Selection";
-    clearButton.hidden = true;
+    clearButton.hidden = !layerSelections.get(activeLayerInfo.layer.uid)?.size;
 
     for (const legendInfo of activeLayerInfo.legendElements) {
       appendLegendInfo(legendInfo, activeLayerInfo, list, clearButton);
     }
     block.append(list, clearButton);
     legendSections.appendChild(block);
-    renderedLayerIds.add(activeLayerInfo.layer.uid);
+    renderedLayers.set(activeLayerInfo, { block, version: activeLayerInfo.version });
 
     clearButton.addEventListener("click", async () => {
       for (const listItem of list.querySelectorAll("calcite-list-item")) {
@@ -94,6 +168,7 @@ function appendLegendInfo(
 
     if (whereClause) {
       const listItem = document.createElement("calcite-list-item");
+      listItem.selected = layerSelections.get(activeLayerInfo.layer.uid)?.has(whereClause) ?? false;
       listItem.label =
         "label" in legendInfo && typeof legendInfo.label === "string"
           ? legendInfo.label

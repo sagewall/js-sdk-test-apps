@@ -90,6 +90,18 @@ them as resources of the WebMap, with persisted control-point georeferencing.
 The live PDF and image layers are not replaced or modified by resource uploads.
 Saving requires an ArcGIS Online account with permission to create content.
 
+## Interactive LegendModel
+
+In the legend-model app, select **Add cities layer** to add a sample FeatureLayer
+with categories based on the cities' `class` field. Its legend appears automatically,
+and each category filters only that layer. The button is disabled after a
+successful addition; failures display a notice and allow retrying.
+
+The sample uses `reactiveUtils.watch` to track `LegendModel.activeLayerInfos`
+membership and each `ActiveLayerInfo.version`. It waits for ready legend content,
+updates changed sections, removes inactive sections, and preserves category
+selections for unchanged layers.
+
 ## Development
 
 - Check everything is ready:

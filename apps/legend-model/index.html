@@ -19,6 +19,19 @@
               are selected for a layer, all features in that layer are shown.
             </div>
           </calcite-notice>
+          <calcite-button id="add-layer" slot="footer" width="full" disabled>
+            Add cities layer
+          </calcite-button>
+          <calcite-notice
+            id="layer-error"
+            closable
+            icon="exclamation-mark-triangle"
+            kind="danger"
+            scale="s"
+            width="full"
+          >
+            <div slot="message">Unable to add the cities layer. Please try again.</div>
+          </calcite-notice>
           <div id="legend-sections"></div>
         </calcite-panel>
       </calcite-shell-panel>
