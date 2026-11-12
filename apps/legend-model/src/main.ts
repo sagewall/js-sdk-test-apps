@@ -129,6 +129,7 @@ function renderLegend() {
     list.label = `${activeLayerInfo.title} legend items`;
     list.scale = "s";
     list.selectionMode = "multiple";
+    list.selectionAppearance = "highlight";
 
     // Add a heading action to clear this layer's selections.
     const clearButton = document.createElement("calcite-button");
