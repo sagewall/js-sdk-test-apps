@@ -23,6 +23,7 @@ peerDependencyRules:
 allowBuilds:
   "@vaadin/vaadin-usage-statistics": true
 minimumReleaseAgeExclude:
+  - "@arcgis/*"
   - "@voidzero-dev/vite-plus-core@1.5.0 || 1.5.1"
   - "@voidzero-dev/vite-plus-darwin-arm64@1.5.0 || 1.5.1"
   - "@voidzero-dev/vite-plus-darwin-x64@1.5.0 || 1.5.1"
