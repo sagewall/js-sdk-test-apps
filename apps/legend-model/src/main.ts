@@ -1,19 +1,17 @@
-import FeatureFilter from "@arcgis/core/layers/support/FeatureFilter.js";
-import FeatureLayer from "@arcgis/core/layers/FeatureLayer.js";
-import FeatureLayerView from "@arcgis/core/views/layers/FeatureLayerView.js";
-import LegendModel from "@arcgis/core/legend/LegendModel.js";
-import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol.js";
-import * as sqlUtils from "@arcgis/core/core/sql.js";
-import UniqueValueRenderer from "@arcgis/core/renderers/UniqueValueRenderer.js";
 import { watch } from "@arcgis/core/core/reactiveUtils.js";
-
-import type ActiveLayerInfo from "@arcgis/core/legend/ActiveLayerInfo.js";
-import type { ClickEvent } from "@arcgis/core/views/input/types.js";
+import * as sqlUtils from "@arcgis/core/core/sql.js";
 import type Graphic from "@arcgis/core/Graphic.js";
-import type LayerView from "@arcgis/core/views/layers/LayerView.js";
+import FeatureLayer from "@arcgis/core/layers/FeatureLayer.js";
+import FeatureFilter from "@arcgis/core/layers/support/FeatureFilter.js";
+import type ActiveLayerInfo from "@arcgis/core/legend/ActiveLayerInfo.js";
+import LegendModel from "@arcgis/core/legend/LegendModel.js";
 import type { LegendElement, SymbolTableElementType } from "@arcgis/core/legend/types";
+import UniqueValueRenderer from "@arcgis/core/renderers/UniqueValueRenderer.js";
+import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol.js";
+import type { ClickEvent } from "@arcgis/core/views/input/types.js";
+import FeatureLayerView from "@arcgis/core/views/layers/FeatureLayerView.js";
+import type LayerView from "@arcgis/core/views/layers/LayerView.js";
 import type { ObjectId } from "@arcgis/core/views/types.js";
-
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-zoom";
 import "@esri/calcite-components/components/calcite-block";
