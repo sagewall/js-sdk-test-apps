@@ -8,8 +8,8 @@ The Pages workflow deploys on pushes to `main` and can also be run manually from
 the Actions tab. It builds shared packages first, then every eligible app, and
 uploads a single `dist/` artifact:
 
-- `apps/website` becomes the site root (`https://<owner>.github.io/<repo>/`).
-- Other apps use their folder names (`https://<owner>.github.io/<repo>/<app>/`).
+- `apps/website` becomes the site root (https://sagewall.github.io/js-sdk-test-apps/).
+- Other apps use their folder names (`https://sagewall.github.io/js-sdk-test-apps/<app>/`).
 - The website lists those apps automatically, using the same discovery as the build.
 
 After pushing this repository to GitHub, open **Settings > Pages** and select
@@ -51,75 +51,6 @@ vp run --no-cache build:pages /js-sdk-test-apps/
 Replace the argument with your repository's Pages base path, or `/` for a domain
 root. Deployment builds disable task caching to avoid reusing another base path's
 assets. The assembled static site is in `dist/`.
-
-## PDF to MediaLayer
-
-In the geospatial PDF app, use a PDF layer's **Create MediaLayer** action to add
-a raster image of the document. The original PDF is retained but hidden after
-successful conversion; both layers can be toggled or removed in the layer list.
-
-Conversion uses the PDF raster engine to bake the embedded page-to-map transform
-and reprojection into image pixels in the current view's spatial reference. The
-returned raster extent positions the image with `ExtentAndRotationGeoreference`;
-the original page image is not simply stretched over the PDF's bounding extent.
-The current neatline setting is captured as image transparency and does not
-change when the clip switch is subsequently toggled.
-
-The longest image dimension is capped at 2048 pixels for GPU compatibility. The
-result initially lives in an in-memory canvas. Its projection is fixed at
-conversion time; moving it to a
-different view projection can introduce MediaLayer's linear reprojection
-limitations. Convert again for that view to preserve the raster reprojection.
-The PDF engine's existing reprojection limitations, including unsupported
-grid-based datum transformations, still apply.
-
-This prototype depends on internal `GeospatialPDFLayer` hooks:
-`getCompatibleFullExtent`, `fetchPixels`, and `createNeatline`. They are guarded
-at runtime but may change between SDK builds.
-
-### Save to ArcGIS Online
-
-Enter a title and select **Save new WebMap** to sign in to ArcGIS Online and
-create a new private WebMap item. Each save creates a separate item; it does not
-overwrite an earlier save. The result link opens the saved map in Map Viewer.
-
-The saved snapshot includes the current basemap, view, layer order, and layer
-visibility. Local PDF layers are rasterized as MediaLayers for persistence,
-including hidden originals. The SDK encodes canvas images as PNG and uploads
-them as resources of the WebMap, with persisted control-point georeferencing.
-The live PDF and image layers are not replaced or modified by resource uploads.
-Saving requires an ArcGIS Online account with permission to create content.
-
-## Interactive LegendModel
-
-In the legend-model app, select **Add cities layer** to add a sample FeatureLayer
-with categories based on the cities' `class` field. Its legend appears automatically,
-and each category filters only that layer. The button is disabled after a
-successful addition; failures display a notice and allow retrying.
-
-In the **Map selection and filtering** panel, turn on **Select features on the
-map** to highlight clicked features and show them in the results list.
-Ctrl/Cmd-click adds or removes a feature; click empty map space or
-**Clear map selection** to clear the list.
-Matching legend rows get a dashed outline without changing filters.
-Turn off selection mode to use map pop-ups again.
-
-Use **Filter to selected features** to keep only the chosen records, or
-**Filter to matching legend categories** to keep all features in their
-single-field legend categories. The filter applies only to layers in the
-selection and combines with existing legend filters. Changing or clearing the
-selection does not change the applied filter; **Remove map selection filter**
-restores the legend-only view.
-
-**Features in current extent** shows how many features each visible feature layer
-shows and how many the combined filters exclude. Counts refresh after pan, zoom,
-or filter changes. Features excluded by both filters count only once, and hidden
-or out-of-scale layers are marked as not visible.
-
-The sample uses `reactiveUtils.watch` to track `LegendModel.activeLayerInfos`
-membership and each `ActiveLayerInfo.version`. It waits for ready legend content,
-updates changed sections, removes inactive sections, and preserves category
-selections for unchanged layers.
 
 ## Development
 
