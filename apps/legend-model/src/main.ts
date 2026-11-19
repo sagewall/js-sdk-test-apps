@@ -110,16 +110,16 @@ watch(
 watch(
   () => ({
     extent: view.stationary ? view.extent : null,
-    layers: Array.from(
-      view.allLayerViews.filter((layerView) => layerView instanceof FeatureLayerView),
-      (layerView) => ({
+    layers: view.allLayerViews
+      .toArray()
+      .filter((layerView) => layerView instanceof FeatureLayerView)
+      .map((layerView) => ({
         layer: layerView.layer,
         title: layerView.layer.title ?? "Untitled layer",
         visible: layerView.visible && !layerView.suspended,
         filter: layerView.filter,
         definitionExpression: layerView.layer.definitionExpression,
-      }),
-    ),
+      })),
   }),
   async ({ extent, layers }) => {
     countRequest?.abort();
