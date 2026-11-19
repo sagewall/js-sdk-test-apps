@@ -1,5 +1,6 @@
 import { watch } from "@arcgis/core/core/reactiveUtils.js";
 import * as sqlUtils from "@arcgis/core/core/sql.js";
+import type Graphic from "@arcgis/core/Graphic.js";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer.js";
 import FeatureFilter from "@arcgis/core/layers/support/FeatureFilter.js";
 import type ActiveLayerInfo from "@arcgis/core/legend/ActiveLayerInfo.js";
@@ -8,6 +9,7 @@ import type { LegendElement, SymbolTableElementType } from "@arcgis/core/legend/
 import UniqueValueRenderer from "@arcgis/core/renderers/UniqueValueRenderer.js";
 import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol.js";
 import FeatureLayerView from "@arcgis/core/views/layers/FeatureLayerView.js";
+import type { ObjectId } from "@arcgis/core/views/types.js";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-zoom";
 import "@esri/calcite-components/components/calcite-block";
@@ -25,19 +27,26 @@ const viewElement = document.querySelector("arcgis-map")!;
 const legendSections = document.getElementById("legend-sections")!;
 const addLayerButton = document.querySelector<HTMLCalciteButtonElement>("#add-layer")!;
 const layerError = document.querySelector<HTMLCalciteNoticeElement>("#layer-error")!;
+const selectFeatures = document.querySelector<HTMLInputElement>("#select-features")!;
+const selectedFeatures = document.querySelector<HTMLCalciteListElement>("#selected-features")!;
+const selectionStatus = document.getElementById("selection-status")!;
+const clearMapSelection = document.querySelector<HTMLCalciteButtonElement>("#clear-map-selection")!;
 
 // Keep category selections independent for each layer.
 const layerSelections = new Map<string, Set<string>>();
+const mapSelections = new Map<FeatureLayerView, Map<ObjectId, Graphic>>();
+const highlights = new Map<FeatureLayerView, { remove(): void }>();
 
 // Wait for the map view before creating its legend model.
 await viewElement.viewOnReady();
-const map = viewElement.view.map;
+const view = viewElement.view;
+const map = view.map;
 if (!map) {
   throw new Error("The map view must have a map to initialize the legend sample.");
 }
 
 const legendModel = new LegendModel({
-  view: viewElement.view,
+  view,
 });
 const renderedLayers = new Map<
   ActiveLayerInfo,
@@ -55,6 +64,102 @@ watch(
   { initial: true },
 );
 
+let clickRevision = 0;
+const popupEnabled = view.popupEnabled;
+selectFeatures.addEventListener("change", () => {
+  clickRevision++;
+  view.popupEnabled = selectFeatures.checked ? false : popupEnabled;
+  if (selectFeatures.checked) {
+    view.closePopup();
+  }
+});
+
+clearMapSelection.addEventListener("click", () => {
+  clickRevision++;
+  mapSelections.clear();
+  renderMapSelection();
+});
+
+view.on("layerview-destroy", ({ layerView }) => {
+  if (layerView instanceof FeatureLayerView && mapSelections.delete(layerView)) {
+    renderMapSelection();
+  }
+});
+
+view.on("click", async (event) => {
+  if (!selectFeatures.checked) {
+    return;
+  }
+
+  const revision = ++clickRevision;
+  const layerViews = view.allLayerViews
+    .filter((layerView) => layerView instanceof FeatureLayerView)
+    .toArray();
+  try {
+    const { results } = await view.hitTest(event, {
+      include: layerViews.map(({ layer }) => layer),
+    });
+    if (revision !== clickRevision) {
+      return;
+    }
+
+    const hit = results.find((result) => result.type === "graphic" && !result.graphic.isAggregate);
+    const layerView = hit && layerViews.find(({ layer }) => layer === hit.layer);
+    const graphic = hit?.type === "graphic" ? hit.graphic : undefined;
+    const objectId = graphic?.getObjectId();
+    const toggle = event.native.ctrlKey || event.native.metaKey;
+    if (!toggle) {
+      mapSelections.clear();
+    }
+    if (layerView && view.allLayerViews.includes(layerView) && graphic && objectId != null) {
+      const features = mapSelections.get(layerView) ?? new Map<ObjectId, Graphic>();
+      if (toggle && features.has(objectId)) {
+        features.delete(objectId);
+      } else {
+        features.set(objectId, graphic);
+      }
+      if (features.size) {
+        mapSelections.set(layerView, features);
+      } else {
+        mapSelections.delete(layerView);
+      }
+    }
+    renderMapSelection();
+  } catch (error) {
+    if (revision === clickRevision) {
+      console.error("Failed to select a feature on the map", error);
+      selectionStatus.textContent = "Unable to update the map selection. Please try again.";
+    }
+  }
+});
+
+function renderMapSelection() {
+  for (const handle of highlights.values()) {
+    handle.remove();
+  }
+  highlights.clear();
+
+  const items: HTMLCalciteListItemElement[] = [];
+  for (const [layerView, features] of mapSelections) {
+    highlights.set(layerView, layerView.highlight([...features.keys()]));
+    const { displayField, title } = layerView.layer;
+    for (const [objectId, graphic] of features) {
+      const item = document.createElement("calcite-list-item");
+      const name = displayField && graphic.getAttribute(displayField);
+      item.label = String(name || `Feature ${objectId}`);
+      item.description = title ?? undefined;
+      items.push(item);
+    }
+  }
+
+  selectedFeatures.replaceChildren(...items);
+  selectedFeatures.hidden = items.length === 0;
+  selectionStatus.textContent = items.length
+    ? `${items.length} ${items.length === 1 ? "feature" : "features"} selected.`
+    : "No features selected.";
+  clearMapSelection.disabled = items.length === 0;
+}
+
 addLayerButton.disabled = false;
 addLayerButton.addEventListener("click", async () => {
   addLayerButton.disabled = true;
@@ -64,7 +169,7 @@ addLayerButton.addEventListener("click", async () => {
   const layer = new FeatureLayer({
     url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0",
     title: "Cities by class",
-    outFields: ["class"],
+    outFields: ["areaname", "class"],
     renderer: new UniqueValueRenderer({
       field: "class",
       uniqueValueInfos: [

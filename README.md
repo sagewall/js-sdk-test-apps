@@ -97,6 +97,11 @@ with categories based on the cities' `class` field. Its legend appears automatic
 and each category filters only that layer. The button is disabled after a
 successful addition; failures display a notice and allow retrying.
 
+Turn on **Select features on the map** to highlight clicked features and show
+them in the **Map selection** results list. Ctrl/Cmd-click adds or removes a
+feature; click empty map space or **Clear map selection** to clear the list.
+Turn off selection mode to use map pop-ups again.
+
 The sample uses `reactiveUtils.watch` to track `LegendModel.activeLayerInfos`
 membership and each `ActiveLayerInfo.version`. It waits for ready legend content,
 updates changed sections, removes inactive sections, and preserves category

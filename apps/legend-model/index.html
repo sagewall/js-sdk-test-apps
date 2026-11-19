@@ -32,6 +32,16 @@
           >
             <div slot="message">Unable to add the cities layer. Please try again.</div>
           </calcite-notice>
+          <calcite-block heading="Map selection" expanded>
+            <label><input id="select-features" type="checkbox" /> Select features on the map</label>
+            <p>Click a feature to select it. Ctrl/Cmd-click to add or remove a feature.</p>
+            <p id="selection-status" role="status">No features selected.</p>
+            <calcite-list id="selected-features" label="Selected features" scale="s" hidden>
+            </calcite-list>
+            <calcite-button id="clear-map-selection" scale="s" disabled>
+              Clear map selection
+            </calcite-button>
+          </calcite-block>
           <div id="legend-sections"></div>
         </calcite-panel>
       </calcite-shell-panel>
