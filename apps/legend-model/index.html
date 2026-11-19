@@ -11,28 +11,9 @@
       <arcgis-map item-id="59a3db1da7744edb9c1818b74d1e954d">
         <arcgis-zoom slot="top-left"></arcgis-zoom>
       </arcgis-map>
-      <calcite-shell-panel slot="panel-end">
-        <calcite-panel scale="s" heading="Legend">
-          <calcite-notice open closable icon="information" kind="info" scale="s" width="full">
-            <div slot="message">
-              Select one or more legend items to show only the corresponding features. Legend
-              filters and map selection filters both apply when set.
-            </div>
-          </calcite-notice>
-          <calcite-button id="add-layer" slot="footer" width="full" disabled>
-            Add cities layer
-          </calcite-button>
-          <calcite-notice
-            id="layer-error"
-            closable
-            icon="exclamation-mark-triangle"
-            kind="danger"
-            scale="s"
-            width="full"
-          >
-            <div slot="message">Unable to add the cities layer. Please try again.</div>
-          </calcite-notice>
-          <calcite-block heading="Map selection" expanded>
+      <calcite-shell-panel slot="panel-start">
+        <calcite-panel scale="s" heading="Map selection and filtering">
+          <calcite-block heading="Select features" expanded>
             <label><input id="select-features" type="checkbox" /> Select features on the map</label>
             <p>Click a feature to select it. Ctrl/Cmd-click to add or remove a feature.</p>
             <p id="selection-status" role="status">No features selected.</p>
@@ -61,6 +42,36 @@
               Remove map selection filter
             </calcite-button>
           </calcite-block>
+          <calcite-block heading="Features in current extent" expanded>
+            <p>Counts include features that intersect the map extent.</p>
+            <p id="extent-summary-status" role="status">Waiting for the map.</p>
+            <calcite-list id="extent-summary" label="Feature counts by layer" scale="s">
+            </calcite-list>
+          </calcite-block>
+        </calcite-panel>
+      </calcite-shell-panel>
+      <calcite-shell-panel slot="panel-end">
+        <calcite-panel scale="s" heading="Legend">
+          <calcite-notice open closable icon="information" kind="info" scale="s" width="full">
+            <div slot="message">
+              Select one or more legend items to show only the corresponding features. Legend
+              filters and map selection filters both apply when set. A dashed outline marks
+              categories of features selected on the map without applying a filter.
+            </div>
+          </calcite-notice>
+          <calcite-button id="add-layer" slot="footer" width="full" disabled>
+            Add cities layer
+          </calcite-button>
+          <calcite-notice
+            id="layer-error"
+            closable
+            icon="exclamation-mark-triangle"
+            kind="danger"
+            scale="s"
+            width="full"
+          >
+            <div slot="message">Unable to add the cities layer. Please try again.</div>
+          </calcite-notice>
           <div id="legend-sections"></div>
         </calcite-panel>
       </calcite-shell-panel>

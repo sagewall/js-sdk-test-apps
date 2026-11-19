@@ -97,9 +97,11 @@ with categories based on the cities' `class` field. Its legend appears automatic
 and each category filters only that layer. The button is disabled after a
 successful addition; failures display a notice and allow retrying.
 
-Turn on **Select features on the map** to highlight clicked features and show
-them in the **Map selection** results list. Ctrl/Cmd-click adds or removes a
-feature; click empty map space or **Clear map selection** to clear the list.
+In the **Map selection and filtering** panel, turn on **Select features on the
+map** to highlight clicked features and show them in the results list.
+Ctrl/Cmd-click adds or removes a feature; click empty map space or
+**Clear map selection** to clear the list.
+Matching legend rows get a dashed outline without changing filters.
 Turn off selection mode to use map pop-ups again.
 
 Use **Filter to selected features** to keep only the chosen records, or
@@ -108,6 +110,11 @@ single-field legend categories. The filter applies only to layers in the
 selection and combines with existing legend filters. Changing or clearing the
 selection does not change the applied filter; **Remove map selection filter**
 restores the legend-only view.
+
+**Features in current extent** shows how many features each visible feature layer
+shows and how many the combined filters exclude. Counts refresh after pan, zoom,
+or filter changes. Features excluded by both filters count only once, and hidden
+or out-of-scale layers are marked as not visible.
 
 The sample uses `reactiveUtils.watch` to track `LegendModel.activeLayerInfos`
 membership and each `ActiveLayerInfo.version`. It waits for ready legend content,

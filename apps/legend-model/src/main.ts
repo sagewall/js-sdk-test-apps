@@ -42,6 +42,9 @@ const removeSelectionFilter = document.querySelector<HTMLCalciteButtonElement>(
 )!;
 const categoryFilterHelp = document.getElementById("category-filter-help")!;
 const selectionFilterStatus = document.getElementById("selection-filter-status")!;
+const extentSummary = document.querySelector<HTMLCalciteListElement>("#extent-summary")!;
+const extentSummaryStatus = document.getElementById("extent-summary-status")!;
+const countFormatter = new Intl.NumberFormat();
 
 // Keep category selections independent for each layer.
 const layerSelections = new Map<string, Set<string>>();
@@ -79,6 +82,88 @@ watch(
       activeLayerInfo.version,
     ]),
   renderLegend,
+  { initial: true },
+);
+
+let countRequest: AbortController | undefined;
+watch(
+  () => ({
+    extent: view.stationary ? view.extent : null,
+    layers: Array.from(
+      view.allLayerViews.filter((layerView) => layerView instanceof FeatureLayerView),
+      (layerView) => ({
+        layer: layerView.layer,
+        title: layerView.layer.title ?? "Untitled layer",
+        visible: layerView.visible && !layerView.suspended,
+        filter: layerView.filter,
+        definitionExpression: layerView.layer.definitionExpression,
+      }),
+    ),
+  }),
+  async ({ extent, layers }) => {
+    countRequest?.abort();
+    extentSummary.replaceChildren();
+    if (!extent) {
+      extentSummaryStatus.textContent = "Counts refresh when the map stops moving.";
+      return;
+    }
+    if (!layers.length) {
+      extentSummaryStatus.textContent = "No feature layers in the map.";
+      return;
+    }
+
+    const request = new AbortController();
+    countRequest = request;
+    extentSummaryStatus.textContent = "Updating feature counts.";
+    const counts = layers.map(({ title, visible }) => {
+      const item = document.createElement("calcite-list-item");
+      item.label = title;
+      item.description = visible ? "Counting features…" : "Not visible in this view";
+      return item;
+    });
+    extentSummary.replaceChildren(...counts);
+    await Promise.all(
+      layers.map(async ({ layer, title, visible, filter }, index) => {
+        if (!visible) {
+          return;
+        }
+
+        try {
+          const query = layer.createQuery();
+          query.geometry = extent;
+          query.spatialRelationship = "intersects";
+          const options = { signal: request.signal };
+          const filtered = filter?.where || filter?.objectIds?.length ? query.clone() : null;
+          if (filtered && filter) {
+            if (filter.where) {
+              filtered.where = query.where
+                ? `(${query.where}) AND (${filter.where})`
+                : filter.where;
+            }
+            if (filter.objectIds?.length) {
+              filtered.objectIds = filter.objectIds;
+            }
+          }
+          // Use service counts for both queries so they cover the same extent and source data.
+          const total = layer.queryFeatureCount(query, options);
+          const shown = filtered ? layer.queryFeatureCount(filtered, options) : total;
+          const [totalCount, shownCount] = await Promise.all([total, shown]);
+          if (!request.signal.aborted) {
+            counts[index].description =
+              `${countFormatter.format(shownCount)} shown · ${countFormatter.format(totalCount - shownCount)} filtered out`;
+          }
+        } catch (error) {
+          if (!request.signal.aborted) {
+            console.error(`Failed to count features for ${title}`, error);
+            counts[index].description = "Counts unavailable";
+          }
+        }
+      }),
+    );
+    if (!request.signal.aborted) {
+      extentSummaryStatus.textContent = "Feature counts updated.";
+    }
+  },
   { initial: true },
 );
 
@@ -197,13 +282,15 @@ function renderMapSelection() {
     : "No features selected.";
   clearMapSelection.disabled = items.length === 0;
   filterSelectedFeatures.disabled = items.length === 0;
-  const categories = getSelectedCategoryClauses();
-  filterSelectedCategories.disabled = items.length === 0 || !categories;
-  categoryFilterHelp.hidden = items.length === 0 || !!categories;
+  const { layers, allMatched } = getSelectedCategories();
+  filterSelectedCategories.disabled = items.length === 0 || !allMatched;
+  categoryFilterHelp.hidden = items.length === 0 || allMatched;
+  renderLegendMapSelection(layers);
 }
 
-function getSelectedCategoryClauses() {
-  const layers = new Map<FeatureLayerView, Set<string>>();
+function getSelectedCategories() {
+  const layers = new Map<FeatureLayerView, Map<string, string>>();
+  let allMatched = true;
   for (const [layerView, features] of mapSelections) {
     const renderer = layerView.layer.renderer;
     if (
@@ -213,26 +300,46 @@ function getSelectedCategoryClauses() {
       renderer.field3 ||
       renderer.valueExpression
     ) {
-      return null;
+      allMatched = false;
+      continue;
     }
 
-    const clauses = new Set<string>();
+    const categories = new Map<string, string>();
     for (const graphic of features.values()) {
       const value = graphic.getAttribute(renderer.field);
+      const clause = getValueWhereClause(renderer.field, value);
       if (
+        !clause ||
         (typeof value !== "string" && typeof value !== "number") ||
         !renderer.uniqueValueInfos?.some((info) => String(info.value) === String(value))
       ) {
-        return null;
+        allMatched = false;
+        continue;
       }
-      const clause = getValueWhereClause(renderer.field, value);
-      if (clause) {
-        clauses.add(clause);
+      categories.set(String(value), clause);
+    }
+    layers.set(layerView, categories);
+  }
+  return { layers, allMatched };
+}
+
+function renderLegendMapSelection(layers: ReturnType<typeof getSelectedCategories>["layers"]) {
+  for (const [activeLayerInfo, { block }] of renderedLayers) {
+    const layerView = activeLayerInfo.layerView;
+    const categories = layerView instanceof FeatureLayerView ? layers.get(layerView) : undefined;
+    for (const row of block.querySelectorAll<HTMLCalciteListItemElement>(
+      "calcite-list-item[data-category]",
+    )) {
+      const category = row.dataset.category;
+      const selectedOnMap = category !== undefined && !!categories?.has(category);
+      row.classList.toggle("map-selected", selectedOnMap);
+      if (selectedOnMap) {
+        row.setAttribute("aria-description", "Selected on map");
+      } else {
+        row.removeAttribute("aria-description");
       }
     }
-    layers.set(layerView, clauses);
   }
-  return layers;
 }
 
 function applySelectionFilter(mode: SelectionFilterMode) {
@@ -242,13 +349,13 @@ function applySelectionFilter(mode: SelectionFilterMode) {
       layers.set(layerView, { objectIds: [...features.keys()] });
     }
   } else {
-    const categories = getSelectedCategoryClauses();
-    if (!categories) {
+    const { layers: categories, allMatched } = getSelectedCategories();
+    if (!allMatched) {
       categoryFilterHelp.hidden = false;
       return;
     }
     for (const [layerView, clauses] of categories) {
-      layers.set(layerView, { where: anyCategory(clauses) });
+      layers.set(layerView, { where: anyCategory(clauses.values()) });
     }
   }
   if (!layers.size) {
@@ -373,6 +480,7 @@ function renderLegend() {
       clearButton.hidden = true;
     });
   }
+  renderLegendMapSelection(getSelectedCategories().layers);
 }
 
 function appendLegendInfo(
@@ -414,6 +522,12 @@ function appendLegendInfo(
       symbol.appendChild(legendInfo.preview.cloneNode(true));
 
       listItem.appendChild(symbol);
+      if (
+        "value" in legendInfo &&
+        (typeof legendInfo.value === "string" || typeof legendInfo.value === "number")
+      ) {
+        listItem.dataset.category = String(legendInfo.value);
+      }
       list.appendChild(listItem);
     }
   }
@@ -480,7 +594,7 @@ function updateFilter(activeLayerInfo: ActiveLayerInfo, selectedClauses: Set<str
   applyLayerFilter(layerView);
 }
 
-function anyCategory(clauses: Set<string>) {
+function anyCategory(clauses: Iterable<string>) {
   return Array.from(clauses, (clause) => `(${clause})`).join(" OR ");
 }
 

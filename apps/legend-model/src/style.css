@@ -18,3 +18,17 @@ https://github.com/parcel-bundler/lightningcss/issues/1196
 .legend-symbol > * {
   flex: 0 0 auto;
 }
+
+calcite-list-item[data-category] {
+  position: relative;
+}
+
+/* Paint above the opaque row inside the Calcite list item's shadow DOM. */
+calcite-list-item.map-selected::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  z-index: 1;
+  border: 2px dashed var(--calcite-color-brand);
+  pointer-events: none;
+}
