@@ -90,7 +90,7 @@ if (!viewMap) {
 const map = viewMap;
 
 const legendModel = new LegendModel({ view });
-const popupEnabled = view.popupEnabled;
+const popupDisabled = viewElement.popupDisabled;
 
 // Watchers
 
@@ -631,10 +631,15 @@ function updateFilter(activeLayerInfo: ActiveLayerInfo, selectedClauses: Set<str
   applyLayerFilter(layerView);
 }
 
-function updateSelectionMode() {
+async function updateSelectionMode() {
   clickRevision++;
-  view.popupEnabled = selectFeatures.checked ? false : popupEnabled;
+  viewElement.popupDisabled = selectFeatures.checked || popupDisabled;
   if (selectFeatures.checked) {
-    view.closePopup();
+    try {
+      await viewElement.closePopup();
+    } catch (error) {
+      console.error("Failed to close the popup when enabling map selection", error);
+      selectionStatus.textContent = "Unable to close the popup. Please close it manually.";
+    }
   }
 }
