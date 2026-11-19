@@ -31,11 +31,29 @@ const selectFeatures = document.querySelector<HTMLInputElement>("#select-feature
 const selectedFeatures = document.querySelector<HTMLCalciteListElement>("#selected-features")!;
 const selectionStatus = document.getElementById("selection-status")!;
 const clearMapSelection = document.querySelector<HTMLCalciteButtonElement>("#clear-map-selection")!;
+const filterSelectedFeatures = document.querySelector<HTMLCalciteButtonElement>(
+  "#filter-selected-features",
+)!;
+const filterSelectedCategories = document.querySelector<HTMLCalciteButtonElement>(
+  "#filter-selected-categories",
+)!;
+const removeSelectionFilter = document.querySelector<HTMLCalciteButtonElement>(
+  "#remove-selection-filter",
+)!;
+const categoryFilterHelp = document.getElementById("category-filter-help")!;
+const selectionFilterStatus = document.getElementById("selection-filter-status")!;
 
 // Keep category selections independent for each layer.
 const layerSelections = new Map<string, Set<string>>();
 const mapSelections = new Map<FeatureLayerView, Map<ObjectId, Graphic>>();
 const highlights = new Map<FeatureLayerView, { remove(): void }>();
+type SelectionFilterMode = "features" | "categories";
+let appliedSelectionFilter:
+  | {
+      mode: SelectionFilterMode;
+      layers: Map<FeatureLayerView, { objectIds?: ObjectId[]; where?: string }>;
+    }
+  | undefined;
 
 // Wait for the map view before creating its legend model.
 await viewElement.viewOnReady();
@@ -81,9 +99,29 @@ clearMapSelection.addEventListener("click", () => {
 });
 
 view.on("layerview-destroy", ({ layerView }) => {
-  if (layerView instanceof FeatureLayerView && mapSelections.delete(layerView)) {
+  if (!(layerView instanceof FeatureLayerView)) {
+    return;
+  }
+  if (appliedSelectionFilter?.layers.delete(layerView)) {
+    if (!appliedSelectionFilter.layers.size) {
+      appliedSelectionFilter = undefined;
+    }
+    renderAppliedSelectionFilter();
+  }
+  if (mapSelections.delete(layerView)) {
     renderMapSelection();
   }
+});
+
+filterSelectedFeatures.addEventListener("click", () => applySelectionFilter("features"));
+filterSelectedCategories.addEventListener("click", () => applySelectionFilter("categories"));
+removeSelectionFilter.addEventListener("click", () => {
+  const affected = appliedSelectionFilter?.layers.keys();
+  appliedSelectionFilter = undefined;
+  for (const layerView of affected ?? []) {
+    applyLayerFilter(layerView);
+  }
+  renderAppliedSelectionFilter();
 });
 
 view.on("click", async (event) => {
@@ -158,6 +196,80 @@ function renderMapSelection() {
     ? `${items.length} ${items.length === 1 ? "feature" : "features"} selected.`
     : "No features selected.";
   clearMapSelection.disabled = items.length === 0;
+  filterSelectedFeatures.disabled = items.length === 0;
+  const categories = getSelectedCategoryClauses();
+  filterSelectedCategories.disabled = items.length === 0 || !categories;
+  categoryFilterHelp.hidden = items.length === 0 || !!categories;
+}
+
+function getSelectedCategoryClauses() {
+  const layers = new Map<FeatureLayerView, Set<string>>();
+  for (const [layerView, features] of mapSelections) {
+    const renderer = layerView.layer.renderer;
+    if (
+      !(renderer instanceof UniqueValueRenderer) ||
+      !renderer.field ||
+      renderer.field2 ||
+      renderer.field3 ||
+      renderer.valueExpression
+    ) {
+      return null;
+    }
+
+    const clauses = new Set<string>();
+    for (const graphic of features.values()) {
+      const value = graphic.getAttribute(renderer.field);
+      if (
+        (typeof value !== "string" && typeof value !== "number") ||
+        !renderer.uniqueValueInfos?.some((info) => String(info.value) === String(value))
+      ) {
+        return null;
+      }
+      const clause = getValueWhereClause(renderer.field, value);
+      if (clause) {
+        clauses.add(clause);
+      }
+    }
+    layers.set(layerView, clauses);
+  }
+  return layers;
+}
+
+function applySelectionFilter(mode: SelectionFilterMode) {
+  const layers = new Map<FeatureLayerView, { objectIds?: ObjectId[]; where?: string }>();
+  if (mode === "features") {
+    for (const [layerView, features] of mapSelections) {
+      layers.set(layerView, { objectIds: [...features.keys()] });
+    }
+  } else {
+    const categories = getSelectedCategoryClauses();
+    if (!categories) {
+      categoryFilterHelp.hidden = false;
+      return;
+    }
+    for (const [layerView, clauses] of categories) {
+      layers.set(layerView, { where: anyCategory(clauses) });
+    }
+  }
+  if (!layers.size) {
+    return;
+  }
+
+  const affected = new Set([...(appliedSelectionFilter?.layers.keys() ?? []), ...layers.keys()]);
+  appliedSelectionFilter = { mode, layers };
+  for (const layerView of affected) {
+    applyLayerFilter(layerView);
+  }
+  renderAppliedSelectionFilter();
+}
+
+function renderAppliedSelectionFilter() {
+  removeSelectionFilter.disabled = !appliedSelectionFilter;
+  selectionFilterStatus.textContent = !appliedSelectionFilter
+    ? "No map selection filter applied."
+    : appliedSelectionFilter.mode === "features"
+      ? "Applied map filter: selected features."
+      : "Applied map filter: matching legend categories.";
 }
 
 addLayerButton.disabled = false;
@@ -329,7 +441,10 @@ function getCategoryWhereClause(
     return null;
   }
 
-  const value = legendInfo.value;
+  return getValueWhereClause(layer.renderer.field, legendInfo.value);
+}
+
+function getValueWhereClause(field: string, value: unknown) {
   if (
     value === undefined ||
     (value !== null &&
@@ -342,7 +457,7 @@ function getCategoryWhereClause(
   }
 
   // Use the stored category value; the label is only for display.
-  const fieldName = sqlUtils.sqlName(layer.renderer.field);
+  const fieldName = sqlUtils.sqlName(field);
   // SQL equality does not match NULL, so use IS NULL for that category.
   if (value === null) {
     return `${fieldName} IS NULL`;
@@ -358,14 +473,26 @@ function updateFilter(activeLayerInfo: ActiveLayerInfo, selectedClauses: Set<str
   }
 
   if (!selectedClauses.size) {
-    // With no categories selected, show all features in this layer.
-    layerView.filter = null;
     layerSelections.delete(layerId);
-    return;
+  } else {
+    layerSelections.set(layerId, selectedClauses);
   }
+  applyLayerFilter(layerView);
+}
 
-  // A feature is included when it matches any selected category.
-  const where = Array.from(selectedClauses, (clause) => `(${clause})`).join(" OR ");
-  layerView.filter = new FeatureFilter({ where });
-  layerSelections.set(layerId, selectedClauses);
+function anyCategory(clauses: Set<string>) {
+  return Array.from(clauses, (clause) => `(${clause})`).join(" OR ");
+}
+
+function applyLayerFilter(layerView: FeatureLayerView) {
+  const legendClauses = layerSelections.get(layerView.layer.uid);
+  const selectionFilter = appliedSelectionFilter?.layers.get(layerView);
+  const conditions = [legendClauses && anyCategory(legendClauses), selectionFilter?.where].filter(
+    Boolean,
+  );
+  const where = conditions.map((condition) => `(${condition})`).join(" AND ");
+  layerView.filter =
+    where || selectionFilter?.objectIds
+      ? new FeatureFilter({ where: where || undefined, objectIds: selectionFilter?.objectIds })
+      : null;
 }

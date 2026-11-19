@@ -102,6 +102,13 @@ them in the **Map selection** results list. Ctrl/Cmd-click adds or removes a
 feature; click empty map space or **Clear map selection** to clear the list.
 Turn off selection mode to use map pop-ups again.
 
+Use **Filter to selected features** to keep only the chosen records, or
+**Filter to matching legend categories** to keep all features in their
+single-field legend categories. The filter applies only to layers in the
+selection and combines with existing legend filters. Changing or clearing the
+selection does not change the applied filter; **Remove map selection filter**
+restores the legend-only view.
+
 The sample uses `reactiveUtils.watch` to track `LegendModel.activeLayerInfos`
 membership and each `ActiveLayerInfo.version`. It waits for ready legend content,
 updates changed sections, removes inactive sections, and preserves category

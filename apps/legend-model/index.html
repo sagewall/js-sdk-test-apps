@@ -15,8 +15,8 @@
         <calcite-panel scale="s" heading="Legend">
           <calcite-notice open closable icon="information" kind="info" scale="s" width="full">
             <div slot="message">
-              Select one or more legend items to show only the corresponding features. If no items
-              are selected for a layer, all features in that layer are shown.
+              Select one or more legend items to show only the corresponding features. Legend
+              filters and map selection filters both apply when set.
             </div>
           </calcite-notice>
           <calcite-button id="add-layer" slot="footer" width="full" disabled>
@@ -40,6 +40,25 @@
             </calcite-list>
             <calcite-button id="clear-map-selection" scale="s" disabled>
               Clear map selection
+            </calcite-button>
+          </calcite-block>
+          <calcite-block heading="Filter from map selection" expanded>
+            <p>
+              Apply a filter to the selected layers. It stays in place until you replace or remove
+              it.
+            </p>
+            <calcite-button id="filter-selected-features" scale="s" disabled>
+              Filter to selected features
+            </calcite-button>
+            <calcite-button id="filter-selected-categories" scale="s" disabled>
+              Filter to matching legend categories
+            </calcite-button>
+            <p id="category-filter-help" hidden>
+              Every selected feature must match a single-field legend category.
+            </p>
+            <p id="selection-filter-status" role="status">No map selection filter applied.</p>
+            <calcite-button id="remove-selection-filter" scale="s" disabled>
+              Remove map selection filter
             </calcite-button>
           </calcite-block>
           <div id="legend-sections"></div>
