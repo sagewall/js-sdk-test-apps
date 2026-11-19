@@ -1,5 +1,6 @@
 import { createDefaultControlPointsGeoreference } from "@arcgis/core/applications/MapViewer/mediaUtils.js";
 import * as reactiveUtils from "@arcgis/core/core/reactiveUtils.js";
+import type Item from "@arcgis/core/layerList/Item.js";
 import MediaLayer from "@arcgis/core/layers/MediaLayer.js";
 import ControlPointsGeoreference from "@arcgis/core/layers/support/ControlPointsGeoreference.js";
 import ImageElement from "@arcgis/core/layers/support/ImageElement.js";
@@ -7,8 +8,6 @@ import PortalItem from "@arcgis/core/portal/PortalItem.js";
 import type MediaLayerInteractionOptions from "@arcgis/core/views/3d/layers/support/MediaLayerInteractionOptions.js";
 import type MediaLayerView from "@arcgis/core/views/layers/MediaLayerView.js";
 import WebMap from "@arcgis/core/WebMap.js";
-import type { LayerListViewModelEvents } from "@arcgis/core/widgets/LayerList/LayerListViewModel.js";
-import type LayerListItem from "@arcgis/core/widgets/LayerList/ListItem.js";
 import "@arcgis/map-components/components/arcgis-layer-list-next";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-search";
@@ -94,7 +93,7 @@ const editSourcePointsSwitch = document.querySelector<HTMLCalciteSwitchElement>(
   "#edit-source-points-switch",
 )!;
 const layerListElement =
-  document.querySelector<HTMLArcgisLayerListElement>("arcgis-layer-list-next")!;
+  document.querySelector<HTMLArcgisLayerListNextElement>("arcgis-layer-list-next")!;
 const locationSearch = document.querySelector<HTMLArcgisSearchElement>("#media-location-search")!;
 const mapControlPointsGrid = document.querySelector<HTMLDivElement>("#map-control-points-grid")!;
 const mapElement = document.querySelector<HTMLArcgisMapElement>("arcgis-map")!;
@@ -333,14 +332,12 @@ layerListElement.addEventListener("arcgisSelectedItemsChange", () => {
 });
 
 layerListElement.addEventListener("arcgisTriggerAction", async (event) => {
-  const triggerEvent = event as CustomEvent<LayerListViewModelEvents["trigger-action"]>;
-
-  const layer = triggerEvent.detail.item.layer;
+  const layer = event.detail.item.layer;
   if (!(layer instanceof MediaLayer)) {
     return;
   }
 
-  switch (triggerEvent.detail.action.id) {
+  switch (event.detail.action.id) {
     case "zoom-to-media-layer":
       await zoomToLayer(layer);
       break;
@@ -754,7 +751,7 @@ function getReshapeEditSourcePoints(layerView: MediaLayerView): boolean {
 }
 
 function getSelectedMediaLayer(): MediaLayer | null {
-  const selectedItem: LayerListItem | undefined = layerListElement.selectedItems?.at(0);
+  const selectedItem: Item | undefined = layerListElement.selectedItems?.at(0);
   const layer = selectedItem?.layer;
   return layer instanceof MediaLayer ? layer : null;
 }
