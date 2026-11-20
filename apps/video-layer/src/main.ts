@@ -56,7 +56,7 @@ const state: {
 } = {
   telemetrySymbolContext: null,
   videoLayer: new VideoLayer({
-    url: "https://video-server.idt.geocloud.com/video/rest/services/Exercise_1/VideoServer",
+    url: "https://excalibur-holistic-vs.idt.geocloud.com/video/rest/services/Exercise_1/VideoServer",
   }),
   webMap: new WebMap({
     basemap: "topo-vector",
