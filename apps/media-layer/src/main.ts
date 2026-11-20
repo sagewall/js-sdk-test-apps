@@ -8,7 +8,7 @@ import PortalItem from "@arcgis/core/portal/PortalItem.js";
 import type MediaLayerInteractionOptions from "@arcgis/core/views/3d/layers/support/MediaLayerInteractionOptions.js";
 import type MediaLayerView from "@arcgis/core/views/layers/MediaLayerView.js";
 import WebMap from "@arcgis/core/WebMap.js";
-import "@arcgis/map-components/components/arcgis-layer-list-next";
+import "@arcgis/map-components/components/arcgis-layer-list";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-search";
 import "@arcgis/map-components/components/arcgis-zoom";
@@ -92,8 +92,7 @@ const editMediaToolSegmentedControl = document.querySelector<HTMLCalciteSegmente
 const editSourcePointsSwitch = document.querySelector<HTMLCalciteSwitchElement>(
   "#edit-source-points-switch",
 )!;
-const layerListElement =
-  document.querySelector<HTMLArcgisLayerListNextElement>("arcgis-layer-list-next")!;
+const layerListElement = document.querySelector<HTMLArcgisLayerListElement>("arcgis-layer-list")!;
 const locationSearch = document.querySelector<HTMLArcgisSearchElement>("#media-location-search")!;
 const mapControlPointsGrid = document.querySelector<HTMLDivElement>("#map-control-points-grid")!;
 const mapElement = document.querySelector<HTMLArcgisMapElement>("arcgis-map")!;

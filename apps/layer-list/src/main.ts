@@ -17,7 +17,7 @@ import {
 import type Item from "@arcgis/core/layerList/Item.js";
 import ActionButton from "@arcgis/core/support/actions/ActionButton.js";
 import CatalogLayerView from "@arcgis/core/views/layers/CatalogLayerView.js";
-import "@arcgis/map-components/components/arcgis-layer-list-next";
+import "@arcgis/map-components/components/arcgis-layer-list";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-video-player";
 import "@esri/calcite-components/components/calcite-button";
@@ -37,7 +37,7 @@ const defaultWebMapItemId = "512944c00f8a4219a4bb70691089c9e9";
 const defaultPortal = "maps.arcgis.com";
 const html = document.querySelector("html")!;
 const filterModeHandles: ResourceHandle[] = [];
-const layerListElement = document.createElement("arcgis-layer-list-next");
+const layerListElement = document.createElement("arcgis-layer-list");
 const layerListHandles: ResourceHandle[] = [];
 
 let highlightHandle: ResourceHandle;

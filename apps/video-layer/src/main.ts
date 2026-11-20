@@ -13,7 +13,7 @@ import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol.js";
 import WebMap from "@arcgis/core/WebMap.js";
 import "@arcgis/map-components/components/arcgis-editor";
 import "@arcgis/map-components/components/arcgis-expand";
-import "@arcgis/map-components/components/arcgis-layer-list-next";
+import "@arcgis/map-components/components/arcgis-layer-list";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-video-player";
 import "@arcgis/map-components/components/arcgis-zoom";
@@ -113,9 +113,7 @@ const frameEffectSaturateSlider = document.querySelector(
 const frameOpacitySlider = document.querySelector(
   "#frame-opacity-slider",
 )! as HTMLCalciteSliderElement;
-const layerListElement = document.querySelector(
-  "arcgis-layer-list-next",
-)! as HTMLArcgisLayerListNextElement;
+const layerListElement = document.querySelector("arcgis-layer-list")! as HTMLArcgisLayerListElement;
 const opacitySlider = document.querySelector("#opacity-slider")! as HTMLCalciteSliderElement;
 const saveAsButton = document.querySelector("#save-as-button")! as HTMLCalciteButtonElement;
 const saveButton = document.querySelector("#save-button")! as HTMLCalciteButtonElement;
